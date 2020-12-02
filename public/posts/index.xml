@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Joshua&#39;s Blog</title>
+    <link>https://hugo-toha.github.io/posts/</link>
+    <description>Recent content in Posts on Joshua&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 26 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://hugo-toha.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to find Bugs in Android application Using Semgrep</title>
+      <link>https://hugo-toha.github.io/posts/semgrep/</link>
+      <pubDate>Mon, 26 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://hugo-toha.github.io/posts/semgrep/</guid>
+      <description>Introduction Hello, Friends Hope you are all staying safe and Happy. It&amp;rsquo;s been a long time since I wrote the blog .Finally I am able to kick my lazy ass and sit down to write the blog .
+So I am a big fan of Android Security . In my free time I used to read and do some research around Android Security Even my first Blog is about Android-Security .</description>
+    </item>
+    
+    <item>
+      <title>My Baby Steps in DevSecOps</title>
+      <link>https://hugo-toha.github.io/posts/cdp-review/</link>
+      <pubDate>Mon, 26 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://hugo-toha.github.io/posts/cdp-review/</guid>
+      <description>Hello everyone In this blog I m gonna explain my baby steps into the DevSecOps During my last Internship at Practical DevSecOps I got an opportunity to take the CDP exam I have learned a lot from the course In this Blog I&amp;rsquo;m gonna share my experience of my first Certification
+The Opportunity While exploring DevSecOps I came across a course on DevSecOps from the Practical DevSecOps I was stunned on seeing the course syllabus but was sad on seeing the course fee So I pinged Imran if he can offer me a discount or something.</description>
+    </item>
+    
+  </channel>
+</rss>
