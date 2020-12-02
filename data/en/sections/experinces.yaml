@@ -1,0 +1,50 @@
+# section information
+section:
+  name: Experiences
+  id: experiences
+  enable: true
+  weight: 3
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true 
+
+# Your experiences
+experiences:
+- company:
+    name: Atlan.
+    url: "https://atlan.com/"
+    location: Remote
+    overview: Atlan is a modern data workspace that helps data teams collaborate and democratize their enterprise dat
+  positions:
+  - designation: Devops Intern
+    start: August 2020
+    end: December 2020
+    responsibilities:
+    - Responsible for deploying the application in Kubernetes
+    - Introduced the Security best practices for deploying the application in  Cloud Native 
+
+- company:
+    name: Practical DevSecOps.
+    url: "https://www.practical-devsecops.com/"
+    location: Remote
+    overview: Practical DevSecOps ​(a Hysn Technologies Inc company) offers vendor-neutral, practical, and hands-on DevSecOps training and certification programs for IT Professionals. 
+  positions:
+  - designation: Intern
+    start: September 2019
+    end: May 2020
+    responsibilities:
+    - Created the Docker Security Course  Content 
+    - Helped in creating the [DevSecOps University Project](https://www.practical-devsecops.com/devsecops-university/)
+
+- company:
+    name: Appsecco.
+    url: "https://appsecco.com/"
+    location: Banglore
+    overview: Appsecco provides practical security advice and help to safeguard your organisation. Our team can help protect against all possible security risks.
+  positions:
+  - designation: Intern
+    start: May 2019
+    end: June 2019
+    responsibilities:
+    - Learned Mobile(Android) Security , Web Security (Owasp-top-10) and Cloud Security(AWS)
+    - Learned to work with Docker,Git.

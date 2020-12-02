@@ -1,0 +1,21 @@
+# section information
+section:
+  name: Achievements
+  id: achievements
+  enable: true
+  weight: 6
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+# Your achievements achievements
+achievements:
+- title: Certified DevSecOps Professional
+  image: /images/achievements/certification.png
+  summary: Completed the Certified DevSecOps Professional in my first attempt
+- title: Conference Speaker
+  image: /images/achievements/bsides-delhi.jpg
+  summary: Conducted Docker Security workshop at Bsides Delhi 2020.
+- title: Conference Speaker
+  image: /images/achievements/owasp-seasides.png
+  summary: Conducted Docker Security workshop at OWASP Seasides.

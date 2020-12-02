@@ -1,0 +1,17 @@
+# some information about you
+name: "Joshua Jebaraj"
+nickname: "Joshua"
+# greeting message before your name. it will default to "Hi! I am" if not provided
+greeting: "Hi, I am"
+image: "images/author/small.png"
+# give your some contact information. they will be used in the footer
+contactInfo:
+  email: "joshuajebaraj.z@gmail.com"
+  phone: "+917708295395"
+
+# some summary about what you do
+summary:
+  - I am a Security Enthusiast
+  - Automation Lover
+  - I love to Speak at Conference and Conduct Workshop
+  - I love to work on open-source projects
