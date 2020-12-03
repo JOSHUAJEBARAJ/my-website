@@ -1,0 +1,31 @@
+section:
+  name: Skills
+  id: skills
+  enable: true
+  weight: 2
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+# Your Skills.
+# Give a summary of you each skill in the summary section.
+skills:
+- name: Programming Languages
+  icon: "/images/skills/programming.png"
+  summary: Capable of Writing program using the following Languages. Java,Bash,Python,Golang.
+
+- name: Devops Skills 
+  icon: "/images/skills/devops.png"
+  summary: "Experience in working with containerization technologies like Docker and orchestration engines like Kubernetes.Worked with Github action and Gitlab CI and having basic in Configuration management tool like   Ansible and Vagrant  "
+
+
+- name: Cyber Security
+  icon: "/images/skills/security.png"
+  summary: "Having basic knowledge of Web and Mobile Security(Android).Having intermediate knowledge in the Docker,Kubernetes Security and DevSecOps "
+
+
+- name: Cloud Computing
+  icon: "/images/skills/cloud.png"
+  summary: "Worked with most of the major clouds such as GCP, AWS etc."
+
+
