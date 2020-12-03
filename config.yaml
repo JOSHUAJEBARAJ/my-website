@@ -28,6 +28,12 @@ params:
   # gitRepo: https://github.com/hugo-toha/hugo-toha.github.io
   background: /images/author/dp.jpeg
 
+  logo:
+    main: /images/site/logo.png
+    inverted: /images/site/logo.png
+    favicon: /images/site/logo.png
+
+
 
 
 
