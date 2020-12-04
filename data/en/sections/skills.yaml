@@ -12,7 +12,7 @@ section:
 skills:
 - name: Programming Languages
   icon: "/images/skills/programming.png"
-  summary: Capable of Writing program using the following Languages. Java,Bash,Python,Golang.
+  summary: Capable of Writing program using the following Languages Java, Bash, Python, Golang.
 
 - name: Devops Skills 
   icon: "/images/skills/devops.png"
@@ -21,7 +21,7 @@ skills:
 
 - name: Cyber Security
   icon: "/images/skills/security.png"
-  summary: "Having basic knowledge of Web and Mobile Security(Android).Having intermediate knowledge in the Docker,Kubernetes Security and DevSecOps "
+  summary: "Having basic knowledge of Web and Mobile Security(Android). Having intermediate knowledge in the Docker, Kubernetes Security and DevSecOps "
 
 
 - name: Cloud Computing
