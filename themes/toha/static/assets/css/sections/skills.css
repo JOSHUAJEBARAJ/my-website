@@ -24,6 +24,7 @@
 .skills-section .card .card-body {
   padding-top: 0.2rem;
   padding-left: 0.7rem;
+  text-align: start;
 }
 
 /* ============= Device specific fixes ======= */
