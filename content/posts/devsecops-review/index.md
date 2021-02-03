@@ -1,7 +1,7 @@
 ---
 title: "My Review on DevSecops academy"
 date: 2020-10-26
-hero: /posts/devsecops-review/cover.jpg
+hero: /posts/devsecops-review/cover.png
 description: review on DevSecOps Academy
 menu:
   sidebar:
