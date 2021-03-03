@@ -6,7 +6,7 @@ description: Gcloud SDK
 menu:
   sidebar:
     name: GCP-2
-    identifier: gcp
+    identifier: gcp-2
     weight: 10
 ---
 
