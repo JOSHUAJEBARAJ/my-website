@@ -148,4 +148,4 @@ The above command will delete the configuration named test
 > Note delete command will not remove the files that we have created In order to purge the configuration file we have to manually delete those files
 ## Conclusion
 
-Thank you for reading my blog I hope you learned something If you have any comments or feel free out to reach out me on [Twitter](https://twitter.com/joshva_jebaraj) Feel free to check out my other articles at [my-website](https://www.joshuajebaraj.com/posts/)
+Thank you for reading my blog I hope you learned something ,If you have any comments or questions feel free to reach out to me on [Twitter](https://twitter.com/joshva_jebaraj) Feel free to check out my other articles at [my-website](https://www.joshuajebaraj.com/posts/)

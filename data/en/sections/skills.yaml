@@ -12,16 +12,16 @@ section:
 skills:
 - name: Programming Languages
   icon: "/images/skills/programming.png"
-  summary: Capable of Writing program using the following Languages Java, Bash, Python, Golang.
+  summary: Capable of writing programs using  Java, Bash, Python, Golang.
 
 - name: Devops Skills 
   icon: "/images/skills/devops.png"
-  summary: "Experience in working with containerization technologies like Docker and orchestration engines like Kubernetes.Worked with Github action and Gitlab CI and having basic in Configuration management tool like   Ansible and Vagrant  "
+  summary: "Having Good knowledge in the Linux and Networking .Experince in working with Container technologies like Docker and Kubernetes .Having good knowledge in Gitlab and Github CI/CD pipeline .Having good knowledge in Configuration management like Ansible"
 
 
 - name: Cyber Security
   icon: "/images/skills/security.png"
-  summary: "Having basic knowledge of Web and Mobile Security(Android). Having intermediate knowledge in the Docker, Kubernetes Security and DevSecOps "
+  summary: "Having basic knowledge of Web and Mobile Security(Android). Having intermediate knowledge in the Docker, GCP Security and DevSecOps "
 
 
 - name: Cloud Computing
