@@ -1,12 +1,12 @@
 ---
 title: "How to build hardened Image using Packer"
-date: 2021-03-27
+date: 2021-03-26
 hero: /posts/gcp-4/preview.jpg
 description: GCP IAM 
 menu:
   sidebar:
-    name: GCP-3
-    identifier: gcp-3
+    name: GCP-4
+    identifier: gcp-4
     weight: 10
 ---
 
