@@ -16,7 +16,7 @@ skills:
 
 - name: Devops Skills 
   icon: "/images/skills/devops.png"
-  summary: "Having Good knowledge in the Linux and Networking .Experince in working with Container technologies like Docker and Kubernetes .Having good knowledge in Gitlab and Github CI/CD pipeline .Having good knowledge in Configuration management like Ansible"
+  summary: "Having Good knowledge in the Linux and Networking .Experience in working with Container technologies like Docker and Kubernetes .Having good knowledge in Gitlab and Github CI/CD pipeline .Having good knowledge in IAC like Packer Vagrant Ansible"
 
 
 - name: Cyber Security
