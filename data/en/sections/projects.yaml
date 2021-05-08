@@ -1,0 +1,45 @@
+# section information
+section:
+  name: Projects
+  id: projects
+  enable: true
+  weight: 5
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+# filter buttons
+buttons:
+- name: All
+  filter: "all"
+- name: Security
+  filter: "security"
+- name: Cloud 
+  filter: "cloud"
+- name: Programming 
+  filter: "programming"
+
+# your projects
+projects:
+- name: Docker-clean 
+  logo: /images/projects/go.png
+  role: Creator 
+  timeline: "May 2020 - Present"
+  repo: https://github.com/JOSHUAJEBARAJ/docker-clean
+  
+  summary: A CLI tool which helps to remove the docker Images
+  tags: ["All","programming"]
+
+- name: GCP-Enum 
+  logo: /images/projects/go.png
+  role: Creator 
+  timeline: "April 2020 - Present"
+  repo: https://github.com/JOSHUAJEBARAJ/gcp-enum
+  
+  summary: GCP enum is the tool that helps to find the existence of the GCP buckets. This might be helpful during the pentesting or recon.
+  tags: ["All","security","gcp"]
+
+
+
+
+
