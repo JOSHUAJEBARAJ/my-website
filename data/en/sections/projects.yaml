@@ -31,6 +31,14 @@ projects:
   summary: In this project I have tried to implement the Security in the CI/CD pipeline 
   tags: ["All","security"]
 
+- name: Ansible-role
+  logo: /images/projects/go.png
+  role: Creator 
+  timeline: "April 2020 - Present"
+  repo: https://galaxy.ansible.com/joshuajebaraj/ansible_role_gitea
+  
+  summary: Ansible role to install the Gitea 
+  tags: ["programming","cloud"]
 
 - name: Docker-clean 
   logo: /images/projects/go.png
