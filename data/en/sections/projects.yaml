@@ -31,6 +31,16 @@ projects:
   summary: In this project I have tried to implement the Security in the CI/CD pipeline 
   tags: ["All","security"]
 
+- name: Terraform Learning 
+  logo: /images/projects/terraform.png
+  role: Creator 
+  timeline: "May 2020 - Present"
+  repo: "https://terraform.joshuajebaraj.com/"
+  
+  summary: In this project I have created small project around terraform  
+  tags: ["All","cloud"]
+
+
 - name: Ansible-role
   logo: /images/projects/go.png
   role: Creator 
