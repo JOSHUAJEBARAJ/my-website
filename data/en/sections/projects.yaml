@@ -25,7 +25,7 @@ projects:
 - name: Securing CI/CD
   logo: /images/projects/devsecops.png
   role: Creator 
-  timeline: "May 2020 - Present"
+  timeline: "May 2021 - Present"
   repo: https://securing-ci-cd.joshuajebaraj.com/
   
   summary: In this project I have tried to implement the Security in the CI/CD pipeline 
@@ -34,17 +34,25 @@ projects:
 - name: Terraform Learning 
   logo: /images/projects/terraform.png
   role: Creator 
-  timeline: "May 2020 - Present"
+  timeline: "May 2021 - Present"
   repo: "https://terraform.joshuajebaraj.com/"
   
   summary: In this project I have created small project around terraform  
   tags: ["All","cloud"]
 
+- name: Kubernetes Shell 
+  logo: /images/projects/go.png
+  role: Creator 
+  timeline: "May 2021 - Present"
+  repo: "https://github.com/JOSHUAJEBARAJ/Kubectl-shell"
+  
+  summary: Kubectl shell is the Kubernetes-plugin which helps to get shell inside the container/pods
+  tags: ["programming","cloud"]
 
 - name: Ansible-role
   logo: /images/projects/go.png
   role: Creator 
-  timeline: "April 2020 - Present"
+  timeline: "April 2021 - Present"
   repo: https://galaxy.ansible.com/joshuajebaraj/ansible_role_gitea
   
   summary: Ansible role to install the Gitea 
@@ -53,7 +61,7 @@ projects:
 - name: Docker-clean 
   logo: /images/projects/go.png
   role: Creator 
-  timeline: "May 2020 - Present"
+  timeline: "May 2021 - Present"
   repo: https://github.com/JOSHUAJEBARAJ/docker-clean
   
   summary: A CLI tool which helps to remove the docker Images
@@ -62,7 +70,7 @@ projects:
 - name: GCP-Enum 
   logo: /images/projects/go.png
   role: Creator 
-  timeline: "April 2020 - Present"
+  timeline: "April 2021 - Present"
   repo: https://github.com/JOSHUAJEBARAJ/gcp-enum
   
   summary: GCP enum is the tool that helps to find the existence of the GCP buckets. This might be helpful during the pentesting or recon.
