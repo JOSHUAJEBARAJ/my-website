@@ -11,6 +11,18 @@ section:
 # Your experiences
 experiences:
 - company:
+    name: we45
+    url: "https://we45.com/"
+    location: Remote
+    overview: The Application Security Specialists.
+  positions:
+  - designation: Associate Research Analyst
+    start: July 2021
+    # end: December 2020
+    # responsibilities:
+    # - Responsible for deploying the application in Kubernetes
+    # - Introduced the Security best practices for deploying the application in  Cloud Native 
+- company:
     name: Atlan.
     url: "https://atlan.com/"
     location: Remote
