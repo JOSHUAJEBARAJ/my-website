@@ -29,9 +29,9 @@ params:
   background: /images/author/dp.jpeg
 
   logo:
-    main: /images/site/logo.png
+    main: /images/site/round.jpg
     inverted: /images/site/logo.png
-    favicon: /images/site/logo.png
+    favicon: /images/site/round.jpg
 
 
 
