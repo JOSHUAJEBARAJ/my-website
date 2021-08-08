@@ -22,6 +22,15 @@ buttons:
 # your projects
 projects:
 
+- name: GCP GOAT 
+  logo: /images/projects/gcp-goat.png
+  role: Creator 
+  timeline: "August 2021 - Present"
+  repo: https://gcpgoat.joshuajebaraj.com/
+  summary: In this project I have tried to implement the Security in the CI/CD pipeline 
+  tags: ["All","security"]
+
+
 - name: Securing CI/CD
   logo: /images/projects/devsecops.png
   role: Creator 
