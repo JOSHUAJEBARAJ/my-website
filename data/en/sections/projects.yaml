@@ -27,7 +27,7 @@ projects:
   role: Creator 
   timeline: "August 2021 - Present"
   repo: https://gcpgoat.joshuajebaraj.com/
-  summary: In this project I have tried to implement the Security in the CI/CD pipeline 
+  summary: GCP-Goat is intentionally vulnerable GCP environment to learn and practice GCP Security 
   tags: ["All","security"]
 
 
