@@ -7,11 +7,11 @@ section:
   template: sections/about.html
 
 # your designation
-designation: Student
+designation: Security Researcher 
 # your company information
 company:
-  name: Vit Chennai.
-  url: "https://chennai.vit.ac.in/"
+  name: We45.
+  url: "https://we45.com/"
 
 # your resume. this file path should be relative to you "static" directory
 resume: "images/files/resume.pdf"

@@ -12,7 +12,7 @@ section:
 skills:
 - name: Programming Languages
   icon: "/images/skills/programming.png"
-  summary: Capable of writing programs using  Golang,Javascript, Bash, Python, Golang.
+  summary: Capable of writing programs using  Golang,Javascript, Bash, Python.
 
 - name: Devops Skills 
   icon: "/images/skills/devops.png"
