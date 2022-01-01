@@ -76,6 +76,17 @@ projects:
   summary: A CLI tool which helps to remove the docker Images
   tags: ["All","programming"]
 
+
+
+- name: Docker-secrets
+  logo: /images/projects/go.png
+  role: Creator 
+  timeline: "Nov 2021 - Present"
+  repo: https://github.com/JOSHUAJEBARAJ/docker-secrets
+  
+  summary: A CLI tool which helps to remove the docker Images
+  tags: ["All","programming","security"]
+
 - name: GCP-Enum 
   logo: /images/projects/go.png
   role: Creator 
