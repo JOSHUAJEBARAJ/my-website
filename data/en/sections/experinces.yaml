@@ -19,9 +19,11 @@ experiences:
   - designation: Associate Research Analyst
     start: July 2021
     # end: December 2020
-    # responsibilities:
-    # - Responsible for deploying the application in Kubernetes
-    # - Introduced the Security best practices for deploying the application in  Cloud Native 
+    responsibilities:
+      - Conducted cloud security audits for the various client using open source tools and help them to identify  security misconfigurations and helped them to fix the misconfigurations
+      - Researched and created the training material for the appsecengineer on the various Kubernetes security concepts like Admission controller, Supply chain security etc 
+      - Lead the GCP Research team and created completely new learning courses on GCP security . 
+
 - company:
     name: Atlan.
     url: "https://atlan.com/"
