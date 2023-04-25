@@ -30,6 +30,13 @@ projects:
   summary: GCP-Goat is intentionally vulnerable GCP environment to learn and practice GCP Security 
   tags: ["All","security"]
 
+- name: Devops Upgrade
+  logo: /images/projects/gcp-goat.png
+  role: Creator 
+  timeline: "April 2023 - Present"
+  repo: https://devopsupgrade.com/
+  summary: Get devops resources in a single click! 
+  tags: ["All"]
 
 - name: Securing CI/CD
   logo: /images/projects/devsecops.png
