@@ -10,14 +10,14 @@ section:
 designation: Security Researcher 
 # your company information
 company:
-  name: We45.
-  url: "https://we45.com/"
+  name: Independent.
+  url: "https://joshuajebaraj.com/"
 
 # your resume. this file path should be relative to you "static" directory
 resume: "images/files/resume.pdf"
 
 # a summary about you
-summary: '**Joshua Jebaraj** is Creator of [GCP-Goat](https://gcpgoat.joshuajebaraj.com/) .He had also Spoken at conferences like Defcon,[Owasp-Seasides](https://www.owaspseasides.com/sessions/introduction_to_building_securing_your_cicd_pipelines/),[Bsides-Delhi](https://bsidesdelhi.in/speakers.php) and [Eko-party](https://open-security-summit.org/training/week-1/devsecops/chef-inspec-compliance-as-code/)  When away from the screen he can be found  watching movies and making memes'
+summary: '**Joshua Jebaraj** is Creator of [GCP-Goat](https://gcpgoat.joshuajebaraj.com/) .He had also Spoken at conferences like [Black-hat](https://www.blackhat.com/us-23/training/schedule/presenters.html#joshua-jebaraj-44856),[Defcon](https://www.youtube.com/watch?v=dcKER88tH50&t=1485s),[Owasp-Seasides](https://www.owaspseasides.com/sessions/introduction_to_building_securing_your_cicd_pipelines/),[Bsides-Delhi](https://bsidesdelhi.in/speakers.php),[Hack in the box](https://conference.hitb.org/hitbsecconf2023hkt/hitb-armory/) etc. When away from the screen he can be found  watching movies and making memes'
 
 # your social links
 # give as many as you want. use font-awesome for the icons.
