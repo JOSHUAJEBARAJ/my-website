@@ -16,13 +16,15 @@ experiences:
     location: Remote
     overview: The Application Security Specialists.
   positions:
-  - designation: Associate Research Analyst
+  - designation: Cloud Native Researcher
     start: July 2021
-    # end: December 2020
+    end: August 2023
     responsibilities:
-      - Conducted cloud security audits for the various client using open source tools and help them to identify  security misconfigurations and helped them to fix the misconfigurations
+      - Created the Initial version of the GCP-Sandbox which allows to create the sandbox environment for the clients.
       - Researched and created the training material for the appsecengineer on the various Kubernetes security concepts like Admission controller, Supply chain security etc 
-      - Lead the GCP Research team and created completely new learning courses on GCP security . 
+      - Lead the GCP Research team and created completely new learning courses on GCP security at appsecengineer. 
+      - Conducted cloud security audits for the various client using open source tools and help them to identify  security misconfigurations and helped them to fix the misconfigurations
+
 
 - company:
     name: Atlan.

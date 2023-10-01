@@ -12,20 +12,15 @@ section:
 skills:
 - name: Programming Languages
   icon: "/images/skills/programming.png"
-  summary: Capable of writing programs using  Golang,Javascript, Bash, Python.
+  summary: Capable of writing programs using  Golang,Python,Bash.
 
 - name: Devops Skills 
   icon: "/images/skills/devops.png"
-  summary: "Having Good knowledge in the Linux and Networking .Experience in working with container technologies like Docker and Kubernetes .Having good knowledge in Gitlab and Github CI/CD pipeline .Having good knowledge in IAC like Packer,Vagrant,Ansible"
+  summary: "Proficient in Linux and Networking.Experienced in Docker and Kubernetes.Skilled in Gitlab and Github CI/CD pipeline.Proficient in Infrastructure as Code (IAC) tools like Terraform and Ansible"
 
 
 - name: Cyber Security
   icon: "/images/skills/security.png"
-  summary: "Having basic knowledge of Web and Mobile Security(Android). Having intermediate knowledge in the Docker, GCP Security and Securing CI/CD pipelines "
-
-
-- name: Cloud Computing
-  icon: "/images/skills/cloud.png"
-  summary: "Worked with most of the major Cloud provider such as GCP, AWS etc."
+  summary: "Basic proficiency in Securing CI/CD pipelines(DevSecOps) and Intermediate knowledge in Cloud(GCP) and Cloud Native Security(Kubernetes) "
 
 
