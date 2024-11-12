@@ -9,12 +9,14 @@ section:
   # hideTitle: true 
 
 # Your experiences
+
+experiences:
 - company:
     name : arch0
     url: "https://arch0.com/"
     location: Remote
-    Overview : From robust identity alignment to seamless operations, enjoy comprehensive protection tailored to your unique needs.
-  Positions:
+    overview : From robust identity alignment to seamless operations, enjoy comprehensive protection tailored to your unique needs.
+  positions:
   - designation: Cloud Engineer
     start: September 2023
     end: Present
@@ -22,7 +24,6 @@ section:
       - Architected and implemented end-to-end CI/CD automation using Terraform, Terragrunt, and GitHub Actions, reducing deployment time by 70% and eliminating manual errors across 20+ Cloud Services.
       - Researched and implemented Google Cloud Platform integration for the arch0 Platform including writing documentation for setup, writing backend code in the Golang and testing the integration.
       - Created a suite of automated internal tools and an AI-powered chatbot to enhance team efficiency .
-experiences:
 - company:
     name: we45
     url: "https://we45.com/"
