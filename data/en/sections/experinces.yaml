@@ -19,7 +19,7 @@ experiences:
   positions:
   - designation: Cloud Engineer
     start: September 2023
-    end: Present
+    end: Feb 2024
     responsibilities:
       - Architected and implemented end-to-end CI/CD automation using Terraform, Terragrunt, and GitHub Actions, reducing deployment time by 70% and eliminating manual errors across 20+ Cloud Services.
       - Researched and implemented Google Cloud Platform integration for the arch0 Platform including writing documentation for setup, writing backend code in the Golang and testing the integration.
