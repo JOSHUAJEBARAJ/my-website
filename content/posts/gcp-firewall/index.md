@@ -11,16 +11,15 @@ menu:
 ---
 
 # Firewalls in GCP 
+Hey folks! It's been **years** since I wrote a blog. In this post, we will learn about the basics of firewalls in GCP and the various types of firewalls available in the Google Cloud Platform.
 
-Hey Folks its been a ~while~ years I wrote a blog about GCP. In this blog we will learn about the basics of various firewall in Google Cloud . 
+## What is a Firewall?
 
-
-Before starting Lets try to understand what is Firewall in first place Acccording to the wikipedia
-
+Before we dive in, let's try to understand what a firewall is in the first place. According to Wikipedia:
 
 > In computing, a firewall is a network security system that monitors and controls incoming and outgoing network traffic based on configurable security rules.
 
-Firewall is nothing but a filter for the network traffic
+To boil it down: **A firewall is essentially a filter for network traffic.**
 
 In GCP we have three types of firewalls 
 1. Hierarchical Firewall Policy
@@ -30,9 +29,11 @@ In GCP we have three types of firewalls
 
 ## VPC Firewall rules 
 
-Lets start with the basic fundamental element which is **Firewall Rules** . As the the name indicates firewall rules is nothing but a sets of rules dictates on how the traffic flows
+Let's start with the oldest firewall type in GCP which is **VPC Firewall Rules**. As the name indicates, firewall rules are nothing but rules that dictate how traffic flows in the VPC.
+
 
 Lets try to see some of the important components in the Firewalls
+
 
 
 | Component | Description |
@@ -43,17 +44,18 @@ Lets try to see some of the important components in the Firewalls
 | Action on Match | Action to perform when a rule matches; options are deny or allow |
 | Priority | Integers assigned to rules; lower numbers indicate higher priority |
 
+Before starting with the hands-on, I want to specify one more thing. In GCP, there are two firewall rules which will be present in all VPC :
+- Implicit Egress allow - This means all egress traffic is allowed by default
+- Implicit Ingress deny - This means all ingress traffic is denied by default
 
+>Note You can't delete these Implicit rules
 
-Before starting with the hands on , I want to specify one more things. In GCP there are two firewall rules which will be present no matter what 
-- Implicit Egress allow - This means all the egress traffics are default allowed 
-- Implicit Ingress deny - This means all the ingress traffics are default denied
+You may ask, isn't this a security issue? we don't want egress traffic to be allowed.
 
-You may ask , but this is a security issues right ? I don't want Egress traffic to be allowed. 
+Note that the default implicit egress and ingress rules are created with the lowest priority `65535`, so we can override them with our custom firewall rules.
 
-Note the default implicit egress and Ingress allow are created with the lowest priority `65535` so we can override them with our custom firewall rules
+Enough of this theory—let's get started with the hands-on.
 
-Enough of this theory lets get started with the hands on.
 
 First create the Custom VPC using the below command 
 
@@ -62,7 +64,7 @@ First create the Custom VPC using the below command
 gcloud compute networks create custom-network --subnet-mode=auto
 ```
 
-By default when you create the custom VCP only the two implicit firewall rules will be present. Next create the vm in the custom VPC that we have created
+By default, when you create a custom VPC, only the two implicit firewall rules will be present. Next create the vm in the custom VPC that we have created
 
 ```bash
 gcloud compute instances create test-vm \
@@ -76,57 +78,65 @@ gcloud compute instances create test-vm \
 ```
 > Replace the project Name with your actual project name 
 
-Once it is done Lets try to ssh into the created VM
-
+Once the previous step is completed, let's try to SSH into the created VM using the following command:
 ```
 gcloud compute ssh test-vm --zone us-central1-c
 ```
 
-If you are doing first time it will generate the SSH keys and put the ssh keys into the projects and configure the VM with the ssh key
+If this is your first time connecting, the command will generate SSH keys, add them to the project, and configure the VM accordingly.
 
-> Note during the creation process press Y for everything and leave the options default
+>Note: During the setup process, press Y for all prompts and leave the options at their default values.
 
-After sometime we will get timeout error . If you remember correctly by default the ingress traffic is denied 
+After some time, you may encounter a timeout error. This happens because, by default, ingress traffic is denied in the VPC. To allow SSH access, we need to explicitly allow inbound traffic on port 22.
 
-Lets create the VPC firewall rules to allow ssh 
+Lets create the VPC firewall rules to allow ssh connections.
 
 ```bash
 gcloud compute firewall-rules create ssh-allow --network custom-network --allow tcp:22
 ```
-After executing the above command if you try to ssh into the vms again using the same command you will be ssh into the VM
+After running the command, try SSH-ing into the VM again using the same SSH command. This time, you should be able to connect successfully.
 
-> Note the default traffic direction is ingress so we don't need to explicitly specify
+
+
+> Note the default traffic direction is ingress so we don't need to explicitly specify in the Gcloud Command
 
 ### Targets in Firewall Rules 
 
-While creating firewall rules you have to specify on which network the rules should be created and also we can specify on which instances the rules are applicable . Below are the choices
-    - All instances in the network
-    - Instance with the particular service account
-    - Instance with the particular tags
+When creating firewall rules, you must specify the network in which the rules should be created. 
+Additionally, you can specify on which instances the rules will apply to. The available options are:
+- All instances in the network
+- Instances with a specific service account
+- Instances with specific tags
 
 ## Firewalls Policies
 
-Firewall policies is nothing but the group of firewall together. Think it like a containers for the firewall rules. Another advantages of the firewall policies is we can apply the firewall policies to the multiple VPCs in the project . This allows the centralized management of the firewalls where we have to manage 100s of rules across multiple VPCs.
+Next, we will discuss Firewall Policies, also known as Network Firewall Policies. A Firewall Policy is essentially a collection of firewall rules, similar to a container for managing multiple rules.
 
-Firewall policies in the GCP are two types 
-    - Global Policies (Applicable to all regions in the VPC)
-    - Regional Policies(Only applicable to the specific regions in the VPC)
+One key advantage of Firewall Policies is that they can be applied to multiple VPCs within a project. This enables centralized management, making it easier to handle hundreds of firewall rules across different VPCs.
 
-Before starting with this hands on lets go ahead and delete the previous ssh rules that we have created
+In GCP, there are two types of Firewall Policies:
+
+- Global Policies – Applicable to all regions within the VPC.
+- Regional Policies – Applicable only to specific regions within the VPC.
+
+Before we proceed with the hands-on exercise, let's delete the previously created SSH rules.
 
 ```bash
 gcloud compute firewall-rules delete ssh-allow
 ```
 
-There are three components in the GCP Global Firewall policies
-- Policies - List of Firewall rules
-- Rules - Actual firewall rules. (Note the configurations of the firewall here is same as VPC firewall rules we discussed before but there are few differences there, which you can find it [here](https://cloud.google.com/firewall/docs/network-firewall-policies))
-- Association - which creates the binding between the policies and the actual VPC
+## Key Components of Firewall Policies
+| **Component**   | **Description** |
+|---------------|---------------|
+| **Policies**   | A collection of firewall rules. |
+| **Rules**      | The actual firewall rules. These configurations are similar to VPC firewall rules but with some key differences. You can find more details [here](https://cloud.google.com/firewall/docs/network-firewall-policies). |
+| **Associations** | Bindings that link firewall policies to specific VPCs. |
 
 
-Policy is nothing but the container that has set of rules. In this section we will create the firewall rules which allows the ICMP ingress traffic to be allowed 
+In this section we will create the firewall rules which allows the ICMP ingress traffic to be allowed 
 
-Lets get started. First create the VPC firewall policy 
+Lets get started. First, create a VPC firewall policy to store the firewall rules:
+
 
 ```bash
 gcloud compute network-firewall-policies create \
@@ -134,7 +144,7 @@ gcloud compute network-firewall-policies create \
     --description "This is the global policy" --global
 ```
 
-Next create the association with the firewalls policies
+Next associate the firewall policy with the custom VPC that we have created previously using association
 
 ```bash
 gcloud compute network-firewall-policies associations create \
@@ -143,13 +153,15 @@ gcloud compute network-firewall-policies associations create \
     --global-firewall-policy
 ```
 
-Before creating the rules lets try to ping the VM and see if the ICMP traffics are reaching
+Before creating the rules lets try to ping the VM and see if the ICMP traffic reaches the VM.
 
+
+Get the external IP of the VM:
 ```bash
 VM1_IP=$(gcloud compute instances describe test-vm --format='get(networkInterfaces[0].accessConfigs[0].natIP)' --zone=us-central1-c)
 ```
 
-Lets try to ping with external IP 
+Lets try to ping the VM with its external IP
 
 ```
  ping -c3 -W 10 $VM1_IP
@@ -158,7 +170,7 @@ Lets try to ping with external IP
  ```
  3 packets transmitted, 0 received, 100% packet loss, time 2032ms
  ```
- You can see we are not able send the traffic
+ You can see from the output ICMP traffic is currently blocked
 
 Next create the firewall rules to allow ICMP traffic
 
@@ -173,17 +185,20 @@ gcloud compute network-firewall-policies rules create 1000 \
     
 ```
 
-Now try to ping Again
+Now try to ping vm again
 
 ```bash
 ping -c3 -W 10 $VM1_IP
 ```
 
-This time we will be able to successfully ping again. But you may why I need to use the firewall policy I could have done the same in the VPC firewall Rules. Lets try to see the couple of the important features that firewall policies provides
+This time we will be able to successfully ping again. 
+
+
+At this point, you might wonder why we used firewall policies instead of regular VPC firewall rules.Let's explore some key advantages of firewall policies in the next section.
 
 ### Firewall Association 
 
-Lets say if you want to attach these policies with the other VPC networks , all you have to do is 
+If you want to attach the same firewall policy to another VPC network, simply run:
 
 ```
 gcloud compute network-firewall-policies associations create \
@@ -192,22 +207,25 @@ gcloud compute network-firewall-policies associations create \
     --global-firewall-policy
 ```
 
-Where in the firewall rules we have to copy the firewall rules to the target VPC and also maintainance going to be PITA as we have to maintain the multiple copies of the same rules.
+With VPC firewall rules, you would need to manually copy the rules to each target VPC, making maintenance a pain since you have to manage multiple copies of the same rules. Using firewall policies simplifies this process by allowing centralized management across multiple VPCs.
 
 ### Go_Next
 
-During VPC firewall we say that we can either allow or deny the traffic but incase of the Network Firewall rules it supports the other two options 
-    - apply_security_profile_group transparently intercepts the traffic and sends it to the configured firewall endpoint for Layer 7 inspection.
-    - goto_next : Simply says continue to process the rules in the below level(Note if you get confused don't worry you will be get enough clarity once we move to the hands on section)
+Previously, we saw that VPC firewall rules allow only allow or deny actions. However, Network Firewall Policies support two additional options:
+
+1. apply_security_profile_group:
+Intercepts traffic and sends it to a firewall endpoint for Layer 7 inspection.
+2. goto_next:
+Simply says continue to process the rules in the below level
+If this sounds confusing, don't worry! It will make sense once we dive into the hands-on section.
+
 
 
 ### Regional Firewall policies
 
-Its is similar to the Global firewall but the only difference its applicable to the regions that is created
+Regional Firewall Policies are similar to Global Firewall Policies, but they apply only to specific regions instead of the entire VPC.
 
-Lets see how the Regional Firewall policies and the Go_Next statement works together
-
-First create the firewall rules with the go to statement
+Now, let's see how Regional Firewall Policies and the goto_next statement work together.
 
 ```bash
 gcloud compute network-firewall-policies rules create 2000 \
@@ -224,11 +242,15 @@ Basically here what we are doing
 
 ![alt text](image.png)
 
-> Note the order in the image is not correct but the concept is same
+> Note the order in the image is not correct but the concept is same. You can find the correct evaluation order [here](https://cloud.google.com/firewall/docs/firewall-policies-overview#default-rule-evaluation)
 
 
 
-Similar to the Global network policies we have to create the Policy, association and the firewalls
+Just like Global Firewall Policies, the process for Regional Firewall Policies follows three steps:
+
+-  Create the Policy
+- Associate it with a VPC
+- Add Firewall Rules
 
 
 ```bash
@@ -237,7 +259,9 @@ gcloud compute network-firewall-policies create \
     --description "Regional network firewall policy with rules that apply to all VMs in us-central1"
 ```
 
-```
+> In the command above, we explicitly specify the region where the firewall policy will be applied using the --region flag.
+
+```bash
 gcloud compute network-firewall-policies associations create \
     --firewall-policy regional-policy \
     --network custom-network \
@@ -257,13 +281,13 @@ gcloud compute network-firewall-policies rules create 1000 \
     --firewall-policy-region=us-central1 
 ```
 
-Next try to ssh into the vms
+Next, try to SSH into the VM
 
 ```
 gcloud compute ssh test-vm --zone us-central1-c
 ```
 
-Lets create the another vm in the Asia region and try to see if we can ssh
+Now, create another VM in the Asia region and check if SSH access works:
 
 ```bash
 gcloud compute instances create test-vm-2 \
@@ -278,15 +302,16 @@ gcloud compute instances create test-vm-2 \
 
 > replace the Project-name with your project name 
 
-Next try to ssh into the instance
+Try SSH access to the newly created instance:
 
 ```bash
 gcloud compute ssh test-vm-2 --zone asia-south1-a
 ```
 
-You will get the error because the regional policy is applicable to only to the regions
+You will get an error because the regional policy only applies to the specified region in our case we can only ssh into the instance which is present in the region `us-central1`
 
-Lets try to see if we can ping 
+
+Now, check if we can ping the VM:
 
 ```bash
 VM2_IP=$(gcloud compute instances describe test-vm-2 --format='get(networkInterfaces[0].accessConfigs[0].natIP)' --zone=asia-south1-a)
@@ -296,19 +321,21 @@ VM2_IP=$(gcloud compute instances describe test-vm-2 --format='get(networkInterf
 ```bash
 ping -c3 -W 10 $VM2_IP
 ```
-We will be able to ping because the Global firewall policies
+We will be able to ping the instance because Global Firewall Policies allows the ICMP traffic
 
 ## Hierarchical Firewall policy
 
-The Last firewall type we are going to see is Hierarchical firewall where we can assign the policy to whole organization or we can assign it to the folders. This will be very useful if you are working in the large organization where we have to apply the policies throughout the organization 
+The last type of firewall we will cover is the Hierarchical Firewall, which allows policies to be assigned at the organization or folder level. This is especially useful in large organizations where firewall rules need to be enforced across multiple projects consistently.
 
-Lets take the scenario where we want to restrict the traffic to `https://www.google.com/` throughout the organization we can do it via the hierarchial policy 
+Let's take a scenario where we want to restrict access to `https://www.google.com/` across the entire organization using a Hierarchical Firewall Policy.
 
-Enough of theory lets get started .
+Enough of the theory—let’s get started.
 
-> Note in order to do the following hands on you need google organization account 
+> Note: To perform this hands-on exercise, you need a Google Organization Account.
 
-First create the firewall policy using the below command
+ 
+
+First, create the firewall policy using the following command:
 
 
 ```bash
@@ -322,8 +349,16 @@ Replace the org id with your org id . You can find the org id using the below co
 ```bash
 gcloud organizations list
 ```
-Next create the firewall rule that block that egress traffic for the google.com
 
+Next associate the firewall policy with the org
+
+```bash
+gcloud compute firewall-policies associations create \
+    --organization=<org-id> \
+    --firewall-policy="org-firewall-policy"
+```
+
+Next, create a firewall rule to block egress traffic to `https://www.google.com/`.
 
 ```bash
 gcloud compute firewall-policies rules create 1000 \
@@ -336,29 +371,28 @@ gcloud compute firewall-policies rules create 1000 \
     --organization=<org-id>
 ```
 
-Next associate the firewall policy with the org
-
-
-```
-gcloud compute firewall-policies associations create \
-    --organization=<org-id> \
-    --firewall-policy="org-firewall-policy"
-```
-
-Now ssh into the vm 
+Now, SSH into the VM:
 
 ```
-gcloud compute ssh test-vm --zone us-central1-c
+gcloud compute ssh test-vm --zone us-central1-c and try to access the google.com using curl command
 ```
 
 ```bash
 curl -m 2 -I www.google.com
 ```
 
-You can see we are getting the time out . This is how we can leverage the Hierarchical policy on the GCP 
+You will see a timeout error, confirming that the egress firewall rule is blocking traffic to www.google.com.This policy will be applicable to all vms in the organizations regardless of folders, projects , regions and VPCs.
 
-Thats it folks . I hope you learned something out of the blog if you folks have any suggestions or questions feel free to reach out to me .
+To summarize what we learned 
 
+| **Firewall Type**                 | **Scope**                            | **Description** |
+|-----------------------------------|-----------------------------------|----------------|
+| **VPC Firewall Rules**            | Single VPC                        | Restricts network traffic within a single VPC. Not recommended unless absolutely necessary. |
+| **Global Network Firewall**       | Multiple VPCs (All Regions)      | Restricts network traffic across multiple VPCs in all regions. |
+| **Regional Network Firewall**     | Multiple VPCs (Specific Region)  | Restricts network traffic across multiple VPCs within a specific region. |
+| **Hierarchical Network Firewall** | Organization / Folder            | Restricts network traffic at the organization or folder level, enforcing policies across multiple projects. |
+
+That's it, folks! I hope you found this blog helpful and learned something new. If you have any feedback or questions, feel free to reach out to me.
 ### Clean up 
 
 ```bash
