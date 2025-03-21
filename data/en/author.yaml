@@ -3,7 +3,7 @@ name: "Joshua Jebaraj"
 nickname: "Joshua Jebaraj"
 # greeting message before your name. it will default to "Hi! I am" if not provided
 greeting: "Hi, I am"
-image: "images/author/round.jpg"
+image: "images/author/image.png"
 # give your some contact information. they will be used in the footer
 contactInfo:
   email: "joshuajebaraj.z@gmail.com"
@@ -11,7 +11,6 @@ contactInfo:
 
 # some summary about what you do
 summary:
-  - I am a Cloud Security enthusiast 
-  - Gopher   
-  - I love to attend/speak in conferences
+  - Cloud/Cloud Native Security
+  - Devops/Automation
   
