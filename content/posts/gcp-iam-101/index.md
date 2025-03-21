@@ -1,7 +1,7 @@
 ---
 title: "Introduction to GCP IAM for AWS Professionals"
-date: 2025-03-20
-hero: content/posts/gcp-iam-101/image.jpg
+date: 2025-03-21
+hero: posts/gcp-iam-101/image.jpg
 description: In this blog we will learn about various fundamental concepts of IAM in GCP
 menu:
   sidebar:
@@ -10,7 +10,6 @@ menu:
     weight: 1
 ---
 
-# Introduction to GCP IAM for AWS Professionals
 
 Hey Folks one of the common problem that I have seen people switching from the AWS to GCP is to understand the IAM in GCP. Though most of the concepts are similar there are a quite bit difference in few important concepts. In this blog we will try to understand the IAM in the GCP world what are the things that are similar and what are the things that are different.
 
