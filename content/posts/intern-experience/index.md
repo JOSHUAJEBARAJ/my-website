@@ -7,7 +7,7 @@ menu:
   sidebar:
     name: Intern-experience
     identifier: intern-experience
-    weight: 10
+    weight: 100
 ---
 
 ## My Internship experience at Atlan

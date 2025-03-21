@@ -7,7 +7,7 @@ menu:
   sidebar:
     name: Mac-setup
     identifier: Mac-setup
-    weight: 1
+    weight: 20
 ---
 
 

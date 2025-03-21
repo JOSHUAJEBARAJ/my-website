@@ -7,7 +7,7 @@ menu:
   sidebar:
     name: DO-Challenge
     identifier: Do-Challenge
-    weight: 10
+    weight: 100
 ---
 
 ## Introduction
