@@ -1,7 +1,5 @@
 [build.environment]
-GO_VERSION = "1.24.2"
 HUGO_VERSION = "0.142.0"
-NODE_VERSION = "22"
 TZ = "America/Los_Angeles"
 
 [build]
