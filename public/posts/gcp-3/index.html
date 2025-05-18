@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  An Introduction to OS login in GCP · Joshua Jebaraj
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Joshua Jebaraj">
+<meta name="description" content="GCP IAM">
+<meta name="keywords" content="blog,developer,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="An Introduction to OS login in GCP">
+  <meta name="twitter:description" content="GCP IAM">
+
+<meta property="og:url" content="http://localhost:1313/posts/gcp-3/">
+  <meta property="og:site_name" content="Joshua Jebaraj">
+  <meta property="og:title" content="An Introduction to OS login in GCP">
+  <meta property="og:description" content="GCP IAM">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-03-24T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-03-24T00:00:00+00:00">
+    <meta property="article:tag" content="GCP">
+    <meta property="article:tag" content="Security">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/gcp-3/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Joshua Jebaraj
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/projects/">Projects/OSS contributions</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/experiences/">Experiences</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/gcp-3/">
+              An Introduction to OS login in GCP
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2021-03-24T00:00:00Z">
+                March 24, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              3-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa-solid fa-user" aria-hidden="true"></i>
+    <a href="/authors/joshua-jebaraj/">Joshua Jebaraj</a></div>
+
+          
+          <div class="tags">
+  <i class="fa-solid fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/gcp/">GCP</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/security/">Security</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h2 id="introduction">
+  Introduction
+  <a class="heading-link" href="#introduction">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Hello Friends 👋 , hope everyone doing well. In this blog, I am going to share how we can use <strong>OS-Login</strong> to secure the GCP Compute Instance access</p>
+<h2 id="outcomes">
+  Outcomes
+  <a class="heading-link" href="#outcomes">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>By the end of the article you will be able to get to know  how to use OS-login</p>
+<h2 id="pre-requisite">
+  Pre-requisite
+  <a class="heading-link" href="#pre-requisite">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ul>
+<li>GCP account with enough permission to create resources</li>
+</ul>
+<h2 id="why-os-login">
+  Why OS login
+  <a class="heading-link" href="#why-os-login">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Imagine some developer in your organization wants to get the SSH access to the Compute Engine for debugging or for some testing purpose.You can do the following</p>
+<ul>
+<li>Give Instance or Compute Engine admin access But the problem with this developer will also able to create delete stop instances this doesn&rsquo;t follow the principle of the least privilege</li>
+<li>Add the SSH-Keys to the instance  But there is no way to keep tracking and monitoring those keys in the large organization</li>
+</ul>
+<p>In order to solve those problems, GCP has introduced the <strong>OS-Login</strong> which allows the user only ssh into the instance</p>
+<h2 id="os-login-advantage">
+  OS Login advantage
+  <a class="heading-link" href="#os-login-advantage">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ul>
+<li>
+<p>OS Login access are based on the IAM So if you decide the developer no longer need to access those resource want they can simply remove the role associated with the IAM</p>
+</li>
+<li>
+<p>OS login allows the user to give sudo permission or allow to login without the Sudo Permission</p>
+</li>
+</ul>
+<h2 id="how-to-enable-os-login">
+  How to Enable os Login
+  <a class="heading-link" href="#how-to-enable-os-login">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Enabling the OS login is the two-step process</p>
+<h3 id="create-the-iam-user">
+  Create the IAM user
+  <a class="heading-link" href="#create-the-iam-user">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Create the Iam user with the below two role</p>
+<p>Go to the IAM Page in the GCP and Click <strong>ADD</strong></p>
+<p><img src="/posts/gcp-3/File1.png" alt=""></p>
+<p>Enter the <strong>email-id</strong> of the user you want to give access</p>
+<p><img src="/posts/gcp-3/File2.png" alt=""></p>
+<p>Give the user below two permission</p>
+<pre tabindex="0"><code>1. Service account User
+2. Compute OS Login
+</code></pre><p><img src="/posts/gcp-3/File3.png" alt=""></p>
+<blockquote>
+<p>If you want to give sudo access instead of Compute OS Login  give Compute OS admin access</p></blockquote>
+<p>Click <strong>save</strong></p>
+<h3 id="creating-the-instance-with-the-metadata">
+  Creating the Instance with the Metadata
+  <a class="heading-link" href="#creating-the-instance-with-the-metadata">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Now we have to add the metadata to the instance to enable the OS login We have two choices</p>
+<ul>
+<li>Adding the metadata  project-wide .This will enable the OS login in  all instance</li>
+<li>Adding the metadata at the  instance level</li>
+</ul>
+<p>For the sake of the article, we are going to add metadata at the instance level</p>
+<p>Now go to the Compute Engine Console</p>
+<blockquote>
+<p>If you are creating the instance using the GUI click the down arrow symbol this will extend the additional options</p></blockquote>
+<p><img src="/posts/gcp-3/File4.png" alt="">
+Enter the below value in the <strong>Metadata</strong> section</p>
+<pre tabindex="0"><code>oslogin TRUE
+</code></pre><p><img src="/posts/gcp-3/File9.png" alt=""></p>
+<p>Click <strong>create</strong></p>
+<p>Now I am switching  to the Developer account  and try to ssh into the instance that we have created previously</p>
+<p>You could see I am  successfully able to ssh into the instance</p>
+<p><img src="/posts/gcp-3/File8.png" alt=""></p>
+<p>Now I am trying to delete the instance</p>
+<p><img src="/posts/gcp-3/File5.png" alt=""></p>
+<p>You could see I am getting permission denied</p>
+<p>We have successfully achieved the Least privilege</p>
+<p>Imagine you longer want to give access to the developer you could simply remove the previously assigned role</p>
+<p>Now I am trying to ssh into the instance after role removal</p>
+<p><img src="/posts/gcp-3/File6.png" alt=""></p>
+<p>You could see permission denied even though I was able to login into the instance previously</p>
+<p>This is how we can use OS-login to Secure Compute Engine access</p>
+<h2 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Thank you for reading my blog I hope you learned something ,If you have any comments or questions feel free to reach out to me on <a href="https://twitter.com/joshva_jebaraj"  class="external-link" target="_blank" rel="noopener">Twitter</a> Feel free to check out my other articles at <a href="https://www.joshuajebaraj.com/posts/"  class="external-link" target="_blank" rel="noopener">my-website</a></p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2025
+     Joshua Jebaraj 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IAM on Joshua Jebaraj</title>
+    <link>http://localhost:1313/tags/iam/</link>
+    <description>Recent content in IAM on Joshua Jebaraj</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 21 Mar 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/iam/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to GCP IAM for AWS Professionals</title>
+      <link>http://localhost:1313/posts/gcp-iam-101/</link>
+      <pubDate>Fri, 21 Mar 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/gcp-iam-101/</guid>
+      <description>&lt;p&gt;Hey Folks one of the common problem that I have seen people switching from the AWS to GCP is to understand the IAM in GCP. Though most of the concepts are similar there are a quite bit difference in few important concepts. In this blog we will try to understand the IAM in the GCP world what are the things that are similar and what are the things that are different.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

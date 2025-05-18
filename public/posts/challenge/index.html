@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Digital Ocean kubernetes challenge · Joshua Jebaraj
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Joshua Jebaraj">
+<meta name="description" content="Digital Ocean">
+<meta name="keywords" content="blog,developer,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Digital Ocean kubernetes challenge">
+  <meta name="twitter:description" content="Digital Ocean">
+
+<meta property="og:url" content="http://localhost:1313/posts/challenge/">
+  <meta property="og:site_name" content="Joshua Jebaraj">
+  <meta property="og:title" content="Digital Ocean kubernetes challenge">
+  <meta property="og:description" content="Digital Ocean">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-12-09T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-12-09T00:00:00+00:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/challenge/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Joshua Jebaraj
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/projects/">Projects/OSS contributions</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/experiences/">Experiences</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/challenge/">
+              Digital Ocean kubernetes challenge
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2021-12-09T00:00:00Z">
+                December 9, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              2-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h2 id="introduction">
+  Introduction
+  <a class="heading-link" href="#introduction">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Hello Friends 👋 , hope everyone doing well. In this blog we are going to see how t deploy a security and compliance system using <a href="https://falco.org/"  class="external-link" target="_blank" rel="noopener">Falco</a>  in the Digital Ocean as part of <a href="https://www.digitalocean.com/community/pages/kubernetes-challenge"  class="external-link" target="_blank" rel="noopener">DigitalOcean Kubernetes Challenge</a></p>
+<p><img src="2021-12-09-12-35-39.png" alt=""></p>
+<h2 id="pre-requisite">
+  Pre-requisite
+  <a class="heading-link" href="#pre-requisite">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ul>
+<li><a href="https://cloud.digitalocean.com/"  class="external-link" target="_blank" rel="noopener">Digital Ocean Account</a></li>
+<li><a href="https://kubernetes.io/docs/tasks/tools/"  class="external-link" target="_blank" rel="noopener">kubectl</a> cli tool to interact with the kubernetes</li>
+<li><a href="https://helm.sh/docs/intro/install/"  class="external-link" target="_blank" rel="noopener">helm</a> to deploy the falco</li>
+</ul>
+<h3 id="creating-the-cluster">
+  Creating the cluster
+  <a class="heading-link" href="#creating-the-cluster">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Digital Ocean offers the managed Kubernetes service so we don&rsquo;t have to manage the underlying infrastructure.</p>
+<ul>
+<li>
+<p>Step 1: Create the simple kubernetes cluster</p>
+</li>
+<li>
+<p>Step 2: Download the kubeconfig file and put it under <code>.kube</code> folder</p>
+</li>
+<li>
+<p>Step 3: Execute the below command to make sure all nodes in running state</p>
+</li>
+</ul>
+<pre tabindex="0"><code>kubectl get nodes
+</code></pre><blockquote>
+<p>Once the node in running state move to the next step</p></blockquote>
+<h3 id="installing-the-falco">
+  Installing the Falco
+  <a class="heading-link" href="#installing-the-falco">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ul>
+<li>Update the helm</li>
+</ul>
+<pre tabindex="0"><code>helm repo add falcosecurity https://falcosecurity.github.io/charts
+helm repo update
+</code></pre><ul>
+<li>Install the falco</li>
+</ul>
+<pre tabindex="0"><code>helm install falco falcosecurity/falco
+</code></pre><ul>
+<li>Enter the below command to see the pod is in running state</li>
+</ul>
+<pre tabindex="0"><code>kubectl get pods
+</code></pre><blockquote>
+<p>Wait for the pod to get created  if the pod is still in creating state</p></blockquote>
+<p><img src="/posts/challenge/2021-12-09-12-15-42.png" alt=""></p>
+<h3 id="creating-security-event">
+  Creating security event
+  <a class="heading-link" href="#creating-security-event">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ul>
+<li>Get the logs of the falco pod using the below command</li>
+</ul>
+<pre tabindex="0"><code>kubectl logs -f &lt;falco-pod-name&gt;
+</code></pre><ul>
+<li>Open the new terminal and create the simple nginx pod</li>
+</ul>
+<pre tabindex="0"><code>kubectl run --image=nginx nginx
+</code></pre><ul>
+<li>Get the shell inside the pod using the below command</li>
+</ul>
+<pre tabindex="0"><code>kubectl exec -ti nginx bash
+</code></pre><ul>
+<li>Now on the first terminal, you will see the alert created by the falco as log</li>
+</ul>
+<p><img src="/posts/challenge/2021-12-09-12-28-34.png" alt=""></p>
+<p>This is how we can install the falco on the k8 cluster to monitor the security events</p>
+<h3 id="references">
+  References
+  <a class="heading-link" href="#references">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ol>
+<li><a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-kubernetes"  class="external-link" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/an-introduction-to-kubernetes</a></li>
+<li><a href="https://developer.ibm.com/tutorials/installing-and-using-sysdig-falco/"  class="external-link" target="_blank" rel="noopener">https://developer.ibm.com/tutorials/installing-and-using-sysdig-falco/</a></li>
+<li><a href="https://github.com/falcosecurity/charts/tree/master/falco#adding-falcosecurity-repository"  class="external-link" target="_blank" rel="noopener">https://github.com/falcosecurity/charts/tree/master/falco#adding-falcosecurity-repository</a></li>
+</ol>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2025
+     Joshua Jebaraj 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>

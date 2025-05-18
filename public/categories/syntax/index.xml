@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Syntax on Joshua Jebaraj</title>
+    <link>http://localhost:1313/categories/syntax/</link>
+    <description>Recent content in Syntax on Joshua Jebaraj</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 13 Jul 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/syntax/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Markdown Syntax Guide</title>
+      <link>http://localhost:1313/posts/we45/</link>
+      <pubDate>Thu, 13 Jul 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/we45/</guid>
+      <description>&lt;p&gt;It&amp;rsquo;s been a year since I started working at &lt;a href=&#34;https://we45.com/&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;we45&lt;/a&gt;. In this blog, I am gonna share my working experience at we45&lt;/p&gt;&#xA;&lt;h2 id=&#34;opportunity&#34;&gt;&#xA;  Opportunity&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#opportunity&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;I have been following we45 since my college days when I started to explore DevSecOps. During my final year when I started looking for a job, I reached out to Abhay and ask him whether there are any openings in we45, to my luck, there are some openings and I applied for the same.&#xA;Before starting the Interview I reached out to &lt;a href=&#34;https://twitter.com/abhaybhargav&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Abhay&lt;/a&gt; and I asked a bunch of questions regarding the company like work culture, mentorship, work pressure, etc. Abhay was kind enough to answer all the questions and after I was satisfied with the answer , the initial interview was set up. Initially, I was a little bit anxious because I don’t what they were gonna ask during the Interview. The folks at the Interview made sure that I was comfortable and it was more like a conversation. We discussed what I learned so far and the &lt;a href=&#34;https://joshuajebaraj.com/#projects&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;projects&lt;/a&gt; that I have worked on so far. After clearing the Interview I joined the we45 in June 2021&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Understanding Firewalls in GCP · Joshua Jebaraj
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Joshua Jebaraj">
+<meta name="description" content="In this blog we will learn about firewalls in GCP">
+<meta name="keywords" content="blog,developer,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Understanding Firewalls in GCP">
+  <meta name="twitter:description" content="In this blog we will learn about firewalls in GCP">
+
+<meta property="og:url" content="http://localhost:1313/posts/gcp-firewall/">
+  <meta property="og:site_name" content="Joshua Jebaraj">
+  <meta property="og:title" content="Understanding Firewalls in GCP">
+  <meta property="og:description" content="In this blog we will learn about firewalls in GCP">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-13T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-03-13T00:00:00+00:00">
+    <meta property="article:tag" content="GCP">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Firewall">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/gcp-firewall/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Joshua Jebaraj
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/projects/">Projects/OSS contributions</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/experiences/">Experiences</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/gcp-firewall/">
+              Understanding Firewalls in GCP
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2025-03-13T00:00:00Z">
+                March 13, 2025
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              9-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa-solid fa-user" aria-hidden="true"></i>
+    <a href="/authors/joshua-jebaraj/">Joshua Jebaraj</a></div>
+
+          
+          <div class="tags">
+  <i class="fa-solid fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/gcp/">GCP</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/security/">Security</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/firewall/">Firewall</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h1 id="firewalls-in-gcp">
+  Firewalls in GCP
+  <a class="heading-link" href="#firewalls-in-gcp">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>Hey folks! It&rsquo;s been <strong>years</strong> since I wrote a blog. In this post, we will learn about the basics of firewalls in GCP and the various types of firewalls available in the Google Cloud Platform.</p>
+<h2 id="what-is-a-firewall">
+  What is a Firewall?
+  <a class="heading-link" href="#what-is-a-firewall">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Before we dive in, let&rsquo;s try to understand what a firewall is in the first place. According to Wikipedia:</p>
+<blockquote>
+<p>In computing, a firewall is a network security system that monitors and controls incoming and outgoing network traffic based on configurable security rules.</p></blockquote>
+<p>To boil it down: <strong>A firewall is essentially a filter for network traffic.</strong></p>
+<p>In GCP we have three types of firewalls</p>
+<ol>
+<li>Hierarchical Firewall Policy</li>
+<li>Network Firewall policy</li>
+<li>VPC Firewall rules</li>
+</ol>
+<h2 id="vpc-firewall-rules">
+  VPC Firewall rules
+  <a class="heading-link" href="#vpc-firewall-rules">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Let&rsquo;s start with the oldest firewall type in GCP which is <strong>VPC Firewall Rules</strong>. As the name indicates, firewall rules are nothing but rules that dictate how traffic flows in the VPC.</p>
+<p>Lets try to see some of the important components in the Firewalls</p>
+<table>
+  <thead>
+      <tr>
+          <th>Component</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Direction</td>
+          <td>Ingress (incoming traffic) and Egress (outgoing traffic)</td>
+      </tr>
+      <tr>
+          <td>Source/Destination</td>
+          <td>For ingress rules, specify the source from which traffic is accepted. For egress rules, specify the destination to which traffic is allowed.</td>
+      </tr>
+      <tr>
+          <td>Protocol and Ports</td>
+          <td>Specifies which protocol and port the rule is applied to</td>
+      </tr>
+      <tr>
+          <td>Action on Match</td>
+          <td>Action to perform when a rule matches; options are deny or allow</td>
+      </tr>
+      <tr>
+          <td>Priority</td>
+          <td>Integers assigned to rules; lower numbers indicate higher priority</td>
+      </tr>
+  </tbody>
+</table>
+<p>Before starting with the hands-on, I want to specify one more thing. In GCP, there are two firewall rules which will be present in all VPC :</p>
+<ul>
+<li>Implicit Egress allow - This means all egress traffic is allowed by default</li>
+<li>Implicit Ingress deny - This means all ingress traffic is denied by default</li>
+</ul>
+<blockquote>
+<p>Note You can&rsquo;t delete these Implicit rules</p></blockquote>
+<p>You may ask, isn&rsquo;t this a security issue? we don&rsquo;t want egress traffic to be allowed.</p>
+<p>Note that the default implicit egress and ingress rules are created with the lowest priority <code>65535</code>, so we can override them with our custom firewall rules.</p>
+<p>Enough of this theory—let&rsquo;s get started with the hands-on.</p>
+<p>First create the Custom VPC using the below command</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute networks create custom-network --subnet-mode<span class="o">=</span>auto
+</span></span></code></pre></div><p>By default, when you create a custom VPC, only the two implicit firewall rules will be present. Next create the vm in the custom VPC that we have created</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute instances create test-vm <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --project<span class="o">=</span>&lt;project&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --zone<span class="o">=</span>us-central1-c <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --machine-type<span class="o">=</span>e2-micro <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --network-interface<span class="o">=</span>network-tier<span class="o">=</span>PREMIUM,stack-type<span class="o">=</span>IPV4_ONLY,subnet<span class="o">=</span>custom-network <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --provisioning-model<span class="o">=</span>STANDARD <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --no-service-account <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --no-scopes
+</span></span></code></pre></div><blockquote>
+<p>Replace the project Name with your actual project name</p></blockquote>
+<p>Once the previous step is completed, let&rsquo;s try to SSH into the created VM using the following command:</p>
+<pre tabindex="0"><code>gcloud compute ssh test-vm --zone us-central1-c
+</code></pre><p>If this is your first time connecting, the command will generate SSH keys, add them to the project, and configure the VM accordingly.</p>
+<blockquote>
+<p>Note: During the setup process, press Y for all prompts and leave the options at their default values.</p></blockquote>
+<p>After some time, you may encounter a timeout error. This happens because, by default, ingress traffic is denied in the VPC. To allow SSH access, we need to explicitly allow inbound traffic on port 22.</p>
+<p>Lets create the VPC firewall rules to allow ssh connections.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute firewall-rules create ssh-allow --network custom-network --allow tcp:22
+</span></span></code></pre></div><p>After running the command, try SSH-ing into the VM again using the same SSH command. This time, you should be able to connect successfully.</p>
+<blockquote>
+<p>Note the default traffic direction is ingress so we don&rsquo;t need to explicitly specify in the Gcloud Command</p></blockquote>
+<h3 id="targets-in-firewall-rules">
+  Targets in Firewall Rules
+  <a class="heading-link" href="#targets-in-firewall-rules">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>When creating firewall rules, you must specify the network in which the rules should be created.
+Additionally, you can specify on which instances the rules will apply to. The available options are:</p>
+<ul>
+<li>All instances in the network</li>
+<li>Instances with a specific service account</li>
+<li>Instances with specific tags</li>
+</ul>
+<h2 id="firewalls-policies">
+  Firewalls Policies
+  <a class="heading-link" href="#firewalls-policies">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Next, we will discuss Firewall Policies, also known as Network Firewall Policies. A Firewall Policy is essentially a collection of firewall rules, similar to a container for managing multiple rules.</p>
+<p>One key advantage of Firewall Policies is that they can be applied to multiple VPCs within a project. This enables centralized management, making it easier to handle hundreds of firewall rules across different VPCs.</p>
+<p>In GCP, there are two types of Firewall Policies:</p>
+<ul>
+<li>Global Policies – Applicable to all regions within the VPC.</li>
+<li>Regional Policies – Applicable only to specific regions within the VPC.</li>
+</ul>
+<p>Before we proceed with the hands-on exercise, let&rsquo;s delete the previously created SSH rules.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute firewall-rules delete ssh-allow
+</span></span></code></pre></div><h2 id="key-components-of-firewall-policies">
+  Key Components of Firewall Policies
+  <a class="heading-link" href="#key-components-of-firewall-policies">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th><strong>Component</strong></th>
+          <th><strong>Description</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Policies</strong></td>
+          <td>A collection of firewall rules.</td>
+      </tr>
+      <tr>
+          <td><strong>Rules</strong></td>
+          <td>The actual firewall rules. These configurations are similar to VPC firewall rules but with some key differences. You can find more details <a href="https://cloud.google.com/firewall/docs/network-firewall-policies"  class="external-link" target="_blank" rel="noopener">here</a>.</td>
+      </tr>
+      <tr>
+          <td><strong>Associations</strong></td>
+          <td>Bindings that link firewall policies to specific VPCs.</td>
+      </tr>
+  </tbody>
+</table>
+<p>In this section we will create the firewall rules which allows the ICMP ingress traffic to be allowed</p>
+<p>Lets get started. First, create a VPC firewall policy to store the firewall rules:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute network-firewall-policies create <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    global-policies <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --description <span class="s2">&#34;This is the global policy&#34;</span> --global
+</span></span></code></pre></div><p>Next associate the firewall policy with the custom VPC that we have created previously using association</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute network-firewall-policies associations create <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --firewall-policy global-policies <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --network custom-network <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --global-firewall-policy
+</span></span></code></pre></div><p>Before creating the rules lets try to ping the VM and see if the ICMP traffic reaches the VM.</p>
+<p>Get the external IP of the VM:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">VM1_IP</span><span class="o">=</span><span class="k">$(</span>gcloud compute instances describe test-vm --format<span class="o">=</span><span class="s1">&#39;get(networkInterfaces[0].accessConfigs[0].natIP)&#39;</span> --zone<span class="o">=</span>us-central1-c<span class="k">)</span>
+</span></span></code></pre></div><p>Lets try to ping the VM with its external IP</p>
+<pre tabindex="0"><code> ping -c3 -W 10 $VM1_IP
+</code></pre><pre tabindex="0"><code>3 packets transmitted, 0 received, 100% packet loss, time 2032ms
+</code></pre><p>You can see from the output ICMP traffic is currently blocked</p>
+<p>Next create the firewall rules to allow ICMP traffic</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute network-firewall-policies rules create <span class="m">1000</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --action allow  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --description <span class="s2">&#34;allow-icmp-traffic&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>     --layer4-configs<span class="o">=</span>icmp <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --firewall-policy global-policies <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --global-firewall-policy <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --src-ip-ranges 0.0.0.0/0 
+</span></span><span class="line"><span class="cl">    
+</span></span></code></pre></div><p>Now try to ping vm again</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ping -c3 -W <span class="m">10</span> <span class="nv">$VM1_IP</span>
+</span></span></code></pre></div><p>This time we will be able to successfully ping again.</p>
+<p>At this point, you might wonder why we used firewall policies instead of regular VPC firewall rules.Let&rsquo;s explore some key advantages of firewall policies in the next section.</p>
+<h3 id="firewall-association">
+  Firewall Association
+  <a class="heading-link" href="#firewall-association">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>If you want to attach the same firewall policy to another VPC network, simply run:</p>
+<pre tabindex="0"><code>gcloud compute network-firewall-policies associations create \
+    --firewall-policy global-policies \
+    --network custom-network \
+    --global-firewall-policy
+</code></pre><p>With VPC firewall rules, you would need to manually copy the rules to each target VPC, making maintenance a pain since you have to manage multiple copies of the same rules. Using firewall policies simplifies this process by allowing centralized management across multiple VPCs.</p>
+<h3 id="go_next">
+  Go_Next
+  <a class="heading-link" href="#go_next">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Previously, we saw that VPC firewall rules allow only allow or deny actions. However, Network Firewall Policies support two additional options:</p>
+<ol>
+<li>apply_security_profile_group:
+Intercepts traffic and sends it to a firewall endpoint for Layer 7 inspection.</li>
+<li>goto_next:
+Simply says continue to process the rules in the below level
+If this sounds confusing, don&rsquo;t worry! It will make sense once we dive into the hands-on section.</li>
+</ol>
+<h3 id="regional-firewall-policies">
+  Regional Firewall policies
+  <a class="heading-link" href="#regional-firewall-policies">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Regional Firewall Policies are similar to Global Firewall Policies, but they apply only to specific regions instead of the entire VPC.</p>
+<p>Now, let&rsquo;s see how Regional Firewall Policies and the goto_next statement work together.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute network-firewall-policies rules create <span class="m">2000</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --action allow  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --description <span class="s2">&#34;delegate-ingress-traffic&#34;</span>  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>     --layer4-configs<span class="o">=</span>tcp:22 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --firewall-policy global-policies <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --global-firewall-policy <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --src-ip-ranges 0.0.0.0/0
+</span></span></code></pre></div><p>Basically here what we are doing</p>
+<p><img src="/posts/gcp-firewall/image.png" alt="alt text"></p>
+<blockquote>
+<p>Note the order in the image is not correct but the concept is same. You can find the correct evaluation order <a href="https://cloud.google.com/firewall/docs/firewall-policies-overview#default-rule-evaluation"  class="external-link" target="_blank" rel="noopener">here</a></p></blockquote>
+<p>Just like Global Firewall Policies, the process for Regional Firewall Policies follows three steps:</p>
+<ul>
+<li>Create the Policy</li>
+<li>Associate it with a VPC</li>
+<li>Add Firewall Rules</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute network-firewall-policies create <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    regional-policy --region<span class="o">=</span>us-central1 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --description <span class="s2">&#34;Regional network firewall policy with rules that apply to all VMs in us-central1&#34;</span>
+</span></span></code></pre></div><blockquote>
+<p>In the command above, we explicitly specify the region where the firewall policy will be applied using the &ndash;region flag.</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute network-firewall-policies associations create <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --firewall-policy regional-policy <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --network custom-network <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --firewall-policy-region<span class="o">=</span>us-central1
+</span></span></code></pre></div><p>Next create the firewall rules</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute network-firewall-policies rules create <span class="m">1000</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --action allow <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --firewall-policy regional-policy  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --description allow-internal-traffic <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --direction INGRESS <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --src-ip-ranges 0.0.0.0/0 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --layer4-configs tcp:22 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --firewall-policy-region<span class="o">=</span>us-central1 
+</span></span></code></pre></div><p>Next, try to SSH into the VM</p>
+<pre tabindex="0"><code>gcloud compute ssh test-vm --zone us-central1-c
+</code></pre><p>Now, create another VM in the Asia region and check if SSH access works:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute instances create test-vm-2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --project<span class="o">=</span>&lt;project&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --zone<span class="o">=</span>asia-south1-a <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --machine-type<span class="o">=</span>e2-micro <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --network-interface<span class="o">=</span>network-tier<span class="o">=</span>PREMIUM,stack-type<span class="o">=</span>IPV4_ONLY,subnet<span class="o">=</span>custom-network <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --provisioning-model<span class="o">=</span>STANDARD <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --no-service-account <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --no-scopes
+</span></span></code></pre></div><blockquote>
+<p>replace the Project-name with your project name</p></blockquote>
+<p>Try SSH access to the newly created instance:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute ssh test-vm-2 --zone asia-south1-a
+</span></span></code></pre></div><p>You will get an error because the regional policy only applies to the specified region in our case we can only ssh into the instance which is present in the region <code>us-central1</code></p>
+<p>Now, check if we can ping the VM:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">VM2_IP</span><span class="o">=</span><span class="k">$(</span>gcloud compute instances describe test-vm-2 --format<span class="o">=</span><span class="s1">&#39;get(networkInterfaces[0].accessConfigs[0].natIP)&#39;</span> --zone<span class="o">=</span>asia-south1-a<span class="k">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ping -c3 -W <span class="m">10</span> <span class="nv">$VM2_IP</span>
+</span></span></code></pre></div><p>We will be able to ping the instance because Global Firewall Policies allows the ICMP traffic</p>
+<h2 id="hierarchical-firewall-policy">
+  Hierarchical Firewall policy
+  <a class="heading-link" href="#hierarchical-firewall-policy">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>The last type of firewall we will cover is the Hierarchical Firewall, which allows policies to be assigned at the organization or folder level. This is especially useful in large organizations where firewall rules need to be enforced across multiple projects consistently.</p>
+<p>Let&rsquo;s take a scenario where we want to restrict access to <code>https://www.google.com/</code> across the entire organization using a Hierarchical Firewall Policy.</p>
+<p>Enough of the theory—let’s get started.</p>
+<blockquote>
+<p>Note: To perform this hands-on exercise, you need a Google Organization Account.</p></blockquote>
+<p>First, create the firewall policy using the following command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute firewall-policies create <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>     --organization<span class="o">=</span>&lt;org-id&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>     --short-name<span class="o">=</span><span class="s2">&#34;org-firewall-policy&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>     --description<span class="o">=</span><span class="s2">&#34;rules that apply to all VMs in the organization&#34;</span>
+</span></span></code></pre></div><p>Replace the org id with your org id . You can find the org id using the below command</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud organizations list
+</span></span></code></pre></div><p>Next associate the firewall policy with the org</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute firewall-policies associations create <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --organization<span class="o">=</span>&lt;org-id&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --firewall-policy<span class="o">=</span><span class="s2">&#34;org-firewall-policy&#34;</span>
+</span></span></code></pre></div><p>Next, create a firewall rule to block egress traffic to <code>https://www.google.com/</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute firewall-policies rules create <span class="m">1000</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --action<span class="o">=</span>deny <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --direction<span class="o">=</span>EGRESS <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --dest-fqdns<span class="o">=</span>www.google.com. <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --description<span class="o">=</span><span class="s2">&#34;block google.com&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --layer4-configs all <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --firewall-policy<span class="o">=</span>org-firewall-policy <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --organization<span class="o">=</span>&lt;org-id&gt;
+</span></span></code></pre></div><p>Now, SSH into the VM:</p>
+<pre tabindex="0"><code>gcloud compute ssh test-vm --zone us-central1-c and try to access the google.com using curl command
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -m <span class="m">2</span> -I www.google.com
+</span></span></code></pre></div><p>You will see a timeout error, confirming that the egress firewall rule is blocking traffic to <a href="https://www.google.com"  class="external-link" target="_blank" rel="noopener">www.google.com</a>.This policy will be applicable to all vms in the organizations regardless of folders, projects , regions and VPCs.</p>
+<p>To summarize what we learned</p>
+<table>
+  <thead>
+      <tr>
+          <th><strong>Firewall Type</strong></th>
+          <th><strong>Scope</strong></th>
+          <th><strong>Description</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>VPC Firewall Rules</strong></td>
+          <td>Single VPC</td>
+          <td>Restricts network traffic within a single VPC. Not recommended unless absolutely necessary.</td>
+      </tr>
+      <tr>
+          <td><strong>Global Network Firewall</strong></td>
+          <td>Multiple VPCs (All Regions)</td>
+          <td>Restricts network traffic across multiple VPCs in all regions.</td>
+      </tr>
+      <tr>
+          <td><strong>Regional Network Firewall</strong></td>
+          <td>Multiple VPCs (Specific Region)</td>
+          <td>Restricts network traffic across multiple VPCs within a specific region.</td>
+      </tr>
+      <tr>
+          <td><strong>Hierarchical Network Firewall</strong></td>
+          <td>Organization / Folder</td>
+          <td>Restricts network traffic at the organization or folder level, enforcing policies across multiple projects.</td>
+      </tr>
+  </tbody>
+</table>
+<p>That&rsquo;s it, folks! I hope you found this blog helpful and learned something new. If you have any feedback or questions, feel free to reach out to me.</p>
+<h3 id="clean-up">
+  Clean up
+  <a class="heading-link" href="#clean-up">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute instances delete test-vm --zone us-central1-c
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcloud compute instances delete test-vm-2 --zone asia-south1-a
+</span></span></code></pre></div><p>For firewall policies, I recommend you to go to the UI and delete the resources or if you are lazy like me delete the whole project xD.</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2025
+     Joshua Jebaraj 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>

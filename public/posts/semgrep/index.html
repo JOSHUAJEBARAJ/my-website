@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  How to find Bugs in Android application Using Semgrep · Joshua Jebaraj
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Joshua Jebaraj">
+<meta name="description" content="Introduction to Semgrep">
+<meta name="keywords" content="blog,developer,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to find Bugs in Android application Using Semgrep">
+  <meta name="twitter:description" content="Introduction to Semgrep">
+
+<meta property="og:url" content="http://localhost:1313/posts/semgrep/">
+  <meta property="og:site_name" content="Joshua Jebaraj">
+  <meta property="og:title" content="How to find Bugs in Android application Using Semgrep">
+  <meta property="og:description" content="Introduction to Semgrep">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-07-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2020-07-22T00:00:00+00:00">
+    <meta property="article:tag" content="Semgrep">
+    <meta property="article:tag" content="Android">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Tools">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/semgrep/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Joshua Jebaraj
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/projects/">Projects/OSS contributions</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/experiences/">Experiences</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/semgrep/">
+              How to find Bugs in Android application Using Semgrep
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2020-07-22T00:00:00Z">
+                July 22, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              6-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa-solid fa-user" aria-hidden="true"></i>
+    <a href="/authors/joshua-jebaraj/">Joshua Jebaraj</a></div>
+
+          
+          <div class="tags">
+  <i class="fa-solid fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/semgrep/">Semgrep</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/android/">Android</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/security/">Security</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/tools/">Tools</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h2 id="introduction">
+  Introduction
+  <a class="heading-link" href="#introduction">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Hello, Friends Hope you are all staying safe and Happy. It&rsquo;s been a long time since I wrote the blog .Finally I am  able to kick my lazy ass and sit down to write the blog .</p>
+<p>So I am a big fan of Android Security . In my free time I used to read and do some research around Android Security Even my first Blog is about <a href="https://www.joshuajebaraj.com/publications/how-do-i-automate-the-enviroment-setup-for-android-pentesting-using-simple-bash-scripts/"  class="external-link" target="_blank" rel="noopener">Android-Security</a> . But I want to automate the Security scanner that able to pick up the most common Security Flaws</p>
+<p>So I ended up having two choices :</p>
+<ul>
+<li>Use a Pre-made Tool like <a href="https://github.com/MobSF/Mobile-Security-Framework-MobSF"  class="external-link" target="_blank" rel="noopener">Mobsf</a> which is a great tool which I suggest must checkout</li>
+<li>Create your own tool</li>
+</ul>
+<p>So I ended Selecting the second option</p>
+<p>So the biggest problem with writing a custom scanner for black box testing in Android is eou will not get the same source code as written due to obfuscation.</p>
+<p>Let&rsquo;s see the example what I meant</p>
+<p>So you wrote the pattern to match the code</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">WebView</span><span class="p">.</span><span class="na">setWebContentsDebuggingEnabled</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>You write the rule in any other existing tool or use the grep to find the above code It will able to find the code .</p>
+<p>But the problem is due to obfuscation the code will not be the same as above this could be changed like</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ew</span><span class="p">.</span><span class="na">setWebContentsDebuggingEnabled</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>Now when we try to run the tool again, or grep again the tool can&rsquo;t able to find the code due to obfuscation .</p>
+<p><img src="https://raw.githubusercontent.com/JOSHUAJEBARAJ/blog-images/master/semgrep/meme.jpg" alt="m1"></p>
+<h2 id="semgrep">
+  Semgrep
+  <a class="heading-link" href="#semgrep">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Here Comes the <a href="https://github.com/returntocorp/semgrep"  class="external-link" target="_blank" rel="noopener">Semgrep</a> into play .Before gets into the detail, lets have a quick look about the <code>Semgrep</code></p>
+<p>According to the Official Docs</p>
+<pre tabindex="0"><code>Lightweight static analysis for many languages.
+Find and block bug variants with rules that look like source code.
+</code></pre><p>Here are a few ways that Semgrep more has an advantage over another too</p>
+<ul>
+<li>Easy to install</li>
+</ul>
+<p>All you need is <code>pip3</code> installed in your System</p>
+<p>You can install Semgrep by typing the below command</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip3 install semgrep
+</span></span></code></pre></div><ul>
+<li>
+<p>Supports Multiple Language like Go,Java,JavaScript,JSON,Python,Ruby(beta),JSX(beta),C(alpha),OCaml(alpha)</p>
+</li>
+<li>
+<p>Can be easily integrate into CI/CD pipeline</p>
+</li>
+<li>
+<p>Has a Registry with Predefined Rules</p>
+</li>
+</ul>
+<p>So without wasting time wasted ,let&rsquo;s get started</p>
+<h2 id="hello-world">
+  Hello-world
+  <a class="heading-link" href="#hello-world">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>For the hands-on part, I am going to use the <a href="https://semgrep.dev/editor"  class="external-link" target="_blank" rel="noopener">Semgrep-Live-editor</a> which allow me to write the rules on the fly .You can either test your rules here like I do or you could test locally with the <strong>semgrep-cli</strong> tool that you installed using pip</p>
+<p>Let&rsquo;s try to understand the various components in  creating the rules  Below is example of simple semgrep rule This rule looks for the <code>System.out.println(&quot;Hello&quot;)</code> in the hello world-program</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">Hello-world</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l">Joshua</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">        System.out.println Found</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">patterns</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="l">System.out.println(&#34;Hello&#34;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">WARNING</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">languages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">java</span><span class="w">
+</span></span></span></code></pre></div><p>let&rsquo;s try to understand the above yaml</p>
+<ul>
+<li>id - Here we specify the  id of the rule</li>
+<li>metadata - Here we can specify the additional information</li>
+<li>message - Here we specify the message to be shown on pattern match</li>
+<li>pattern - Here we specify the pattern  to be matched</li>
+<li>severity - Here we specify the severity</li>
+<li>languages - Here we specify the language</li>
+</ul>
+<p>Copy and paste the above YAML in the <code>semgrep-rule</code> field and put the hello-world code in the <code>Test-code</code> Field and click <strong>RUN</strong></p>
+<p><img src="https://raw.githubusercontent.com/JOSHUAJEBARAJ/blog-images/master/semgrep/hell.png" alt="he"></p>
+<p>Ya, we have successfully written  our first rule !</p>
+<p>So let&rsquo;s get started .To give a quick heads up this blog is more focused on the tool rather than the vulnerabilities So I will not be explaining the vulnerability .</p>
+<h2 id="vulnerabilities">
+  Vulnerabilities
+  <a class="heading-link" href="#vulnerabilities">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<h3 id="webview-debug-mode">
+  WebView Debug mode
+  <a class="heading-link" href="#webview-debug-mode">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>The First vulnerability that we are going to find is debug mode was enabled in the web view of the Android application</p>
+<p>This is what the code look like in the plain java for the above vulnerability</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w"> </span><span class="n">WebView</span><span class="p">.</span><span class="na">setWebContentsDebuggingEnabled</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>The problem here is on reversing the Android application the  <code>Webview</code> can become obfuscated .Let&rsquo;s see how we can solve this with Semgrep</p>
+<p>We are going to use one  of the feature of Semgrep called <strong>Metavarialble</strong> . A Metavariable is the variable which is replaced by any variable in the runtime .</p>
+<p>Below is the Semgrep pattern that we are going to use</p>
+<pre tabindex="0"><code>$RUNTIME.setWebContentsDebuggingEnabled(true);
+</code></pre><p><img src="https://raw.githubusercontent.com/JOSHUAJEBARAJ/blog-images/master/semgrep/image-1.png" alt="img"></p>
+<p>You could See the Semgrep could able to find the matching pattern Lets try to replace the Webview with another value</p>
+<p><img src="https://raw.githubusercontent.com/JOSHUAJEBARAJ/blog-images/master/semgrep/iamge-2.png" alt="img-2"></p>
+<p>You could See Its successfully able to find out that right Lets See What are the other thing that Semgrep Got us to offer</p>
+<h3 id="insecure-logging">
+  Insecure Logging
+  <a class="heading-link" href="#insecure-logging">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>The next vulnerability that we are going to cover was Insecure Logging</p>
+<p>This is What the Code look like in the plain java</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&#34;Tag&#34;</span><span class="p">,</span><span class="s">&#34;Hello From Tag&#34;</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>The problem with this code is that the tag parameter is optional, so there may be code with or without the tag. his is where the ellipsis operator comes into play: the ellipsis operator allow us to match 0 or more arguments.</p>
+<p>Below is the Semgrep pattern that we are going to use</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">Log.e(...)</span><span class="w">
+</span></span></span></code></pre></div><p>Let&rsquo;s try to match the code without a tag .</p>
+<p><img src="https://raw.githubusercontent.com/JOSHUAJEBARAJ/blog-images/master/semgrep/log1.png" alt="log1"></p>
+<p>You can see it successfully finds the code matching this pattern.</p>
+<p>Lets try with log function that uses tag flag.</p>
+<p><img src="https://raw.githubusercontent.com/JOSHUAJEBARAJ/blog-images/master/semgrep/log2.png" alt="log2"></p>
+<p>By default, Semgrep uses the <strong>and</strong> operator but in a certain situation, we want to perform an <strong>or</strong> operation that matches either one of the pattern . To achieve that Semgrep provide <code>pattern-either</code>  option where the semgrep will perform or operation .</p>
+<p>Let&rsquo;s take the example you want to find the hardcoded-secret and  the variable name could be pass or password .The Semgrep should match any one of the variables .</p>
+<blockquote>
+<p>Note to follow the further exercises you have to switch to the <code>Advanced</code> tab in the website</p></blockquote>
+<p><img src="https://raw.githubusercontent.com/JOSHUAJEBARAJ/blog-images/master/semgrep/pattern-1.png" alt="pat-1"></p>
+<p>Semgrep could able to find the pattern. Let&rsquo;s try to replace the variable name with <strong>pass</strong>.</p>
+<p><img src="https://raw.githubusercontent.com/JOSHUAJEBARAJ/blog-images/master/semgrep/pattern-2.png" alt="pat-2"></p>
+<p>Sometimes you want to filter out the patterns that you are not looking for. In those situations you can use <strong>pattern-not</strong> .Let&rsquo;s take the first example Instead of matching all Log message you want to match the log message which is not info log (Note: we are assuming here the Log.info doesn&rsquo;t have any sensitive info but in the real-world,this may vary)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">// this should be matched</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Log</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="s">&#34;Hello Info); // this shouldn&#39;t be matched
+</span></span></span></code></pre></div><p>Let&rsquo;s try to create the  pattern with the <strong>pattern-not</strong> flag</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">Log Message</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">patterns</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          Log.$RUNTIME(...);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">pattern-not</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">        Log.i(...);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    Semgrep found a match</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">WARNING</span><span class="w">
+</span></span></span></code></pre></div><p><img src="https://raw.githubusercontent.com/JOSHUAJEBARAJ/blog-images/master/semgrep/log-i.png" alt="log-i"></p>
+<p>You could see its matches all other patterns than <code>Log.i</code> .This  way you could write  rules  to find  bugs in  Android application .</p>
+<p>There are many features that Semgrep offers .In my blog I cover a few features, but if you are interested in more, then I high Recommend you to check out the resources in the reference section, and I highly recommend you to join the Official Slack Channel <a href="http://r2c.dev/slack"  class="external-link" target="_blank" rel="noopener">here</a></p>
+<p>If you have any questions or feedback feel free to reach out to me on <a href="https://twitter.com/joshva_jebaraj?lang=en"  class="external-link" target="_blank" rel="noopener">Twitter</a> .</p>
+<p>Thanks to <a href="https://twitter.com/pabloest"  class="external-link" target="_blank" rel="noopener">Pablo Estrada</a> for proof reading the blog, and the <a href="https://twitter.com/r2cdev"  class="external-link" target="_blank" rel="noopener">r2cdev</a> for the awesome tool</p>
+<p>Thanks for reading and have a nice day !.</p>
+<h2 id="references">
+  References
+  <a class="heading-link" href="#references">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ul>
+<li><a href="https://semgrep.dev/"  class="external-link" target="_blank" rel="noopener">Semgrep-Docs</a></li>
+<li><a href="https://notsosecure.com/semgrep-a-practical-introduction/"  class="external-link" target="_blank" rel="noopener">Semgrep A Practical Introduction</a></li>
+<li><a href="https://www.youtube.com/watch?v=pul1bRIOYc8"  class="external-link" target="_blank" rel="noopener">Semgrep presentation by r2c at Bay Area OWASP Meetup</a></li>
+<li><a href="https://github.com/MobSF/Mobile-Security-Framework-MobSF/blob/master/StaticAnalyzer/views/android/rules/android_rules.yaml"  class="external-link" target="_blank" rel="noopener">Mobsf-rules</a></li>
+<li><a href="https://semgrep.dev/learn"  class="external-link" target="_blank" rel="noopener">Semgrep-Learning</a></li>
+</ul>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2025
+     Joshua Jebaraj 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Firewall on Joshua Jebaraj</title>
+    <link>http://localhost:1313/tags/firewall/</link>
+    <description>Recent content in Firewall on Joshua Jebaraj</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 13 Mar 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/firewall/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Understanding Firewalls in GCP</title>
+      <link>http://localhost:1313/posts/gcp-firewall/</link>
+      <pubDate>Thu, 13 Mar 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/gcp-firewall/</guid>
+      <description>&lt;h1 id=&#34;firewalls-in-gcp&#34;&gt;&#xA;  Firewalls in GCP&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#firewalls-in-gcp&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&#xA;&lt;p&gt;Hey folks! It&amp;rsquo;s been &lt;strong&gt;years&lt;/strong&gt; since I wrote a blog. In this post, we will learn about the basics of firewalls in GCP and the various types of firewalls available in the Google Cloud Platform.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-a-firewall&#34;&gt;&#xA;  What is a Firewall?&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#what-is-a-firewall&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;Before we dive in, let&amp;rsquo;s try to understand what a firewall is in the first place. According to Wikipedia:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

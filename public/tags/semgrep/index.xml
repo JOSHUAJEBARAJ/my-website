@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Semgrep on Joshua Jebaraj</title>
+    <link>http://localhost:1313/tags/semgrep/</link>
+    <description>Recent content in Semgrep on Joshua Jebaraj</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 22 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/semgrep/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to find Bugs in Android application Using Semgrep</title>
+      <link>http://localhost:1313/posts/semgrep/</link>
+      <pubDate>Wed, 22 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/semgrep/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;&#xA;  Introduction&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#introduction&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;Hello, Friends Hope you are all staying safe and Happy. It&amp;rsquo;s been a long time since I wrote the blog .Finally I am  able to kick my lazy ass and sit down to write the blog .&lt;/p&gt;&#xA;&lt;p&gt;So I am a big fan of Android Security . In my free time I used to read and do some research around Android Security Even my first Blog is about &lt;a href=&#34;https://www.joshuajebaraj.com/publications/how-do-i-automate-the-enviroment-setup-for-android-pentesting-using-simple-bash-scripts/&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Android-Security&lt;/a&gt; . But I want to automate the Security scanner that able to pick up the most common Security Flaws&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

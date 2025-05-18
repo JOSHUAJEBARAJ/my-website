@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cloud on Joshua Jebaraj</title>
+    <link>http://localhost:1313/tags/cloud/</link>
+    <description>Recent content in Cloud on Joshua Jebaraj</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 02 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Getting Started in GCP</title>
+      <link>http://localhost:1313/posts/gcp-1/</link>
+      <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/gcp-1/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;&#xA;  Introduction&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#introduction&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;Hello Friends 👋  ,hope everyone doing good .In this blog I am going to share how we can get started with the GCP&lt;/p&gt;&#xA;&lt;h2 id=&#34;outcomes&#34;&gt;&#xA;  Outcomes&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#outcomes&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;By the end of the article you will be able to create the project and setting up the billing alerts in the Google Cloud&lt;/p&gt;&#xA;&lt;h2 id=&#34;pre-requisite&#34;&gt;&#xA;  Pre-requisite&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#pre-requisite&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Valid Gmail ID&lt;/li&gt;&#xA;&lt;li&gt;Valid credit card (Don&amp;rsquo;t worry you wont be charged)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;creating-the-google-cloud-account&#34;&gt;&#xA;  Creating the Google Cloud Account&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#creating-the-google-cloud-account&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;Go to the &lt;a href=&#34;https://cloud.google.com/&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Google-cloud&lt;/a&gt; page and create the google cloud account  if you don&amp;rsquo;t have google cloud account already, On signing up you will get &lt;strong&gt;300 USD&lt;/strong&gt; as the sign up bonus for one year which will be more than enough for learning and Google also gives some of the resources free forever you can read more about that &lt;a href=&#34;https://cloud.google.com/free/docs/gcp-free-tier&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

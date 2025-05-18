@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  How to build hardened Image using Packer · Joshua Jebaraj
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Joshua Jebaraj">
+<meta name="description" content="GCP IAM">
+<meta name="keywords" content="blog,developer,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to build hardened Image using Packer">
+  <meta name="twitter:description" content="GCP IAM">
+
+<meta property="og:url" content="http://localhost:1313/posts/gcp-4/">
+  <meta property="og:site_name" content="Joshua Jebaraj">
+  <meta property="og:title" content="How to build hardened Image using Packer">
+  <meta property="og:description" content="GCP IAM">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-03-26T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-03-26T00:00:00+00:00">
+    <meta property="article:tag" content="GCP">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Packer">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/gcp-4/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Joshua Jebaraj
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/projects/">Projects/OSS contributions</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/experiences/">Experiences</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/gcp-4/">
+              How to build hardened Image using Packer
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2021-03-26T00:00:00Z">
+                March 26, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              4-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa-solid fa-user" aria-hidden="true"></i>
+    <a href="/authors/joshua-jebaraj/">Joshua Jebaraj</a></div>
+
+          
+          <div class="tags">
+  <i class="fa-solid fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/gcp/">GCP</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/security/">Security</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/packer/">Packer</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h2 id="introduction">
+  Introduction
+  <a class="heading-link" href="#introduction">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Hello Friends 👋 , hope everyone doing well. In this blog, I am going to share how we can use <strong>Packer</strong> to secure the underlying GCP Compute Instance</p>
+<h2 id="pre-requisite">
+  Pre-requisite
+  <a class="heading-link" href="#pre-requisite">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ul>
+<li>Packer If you don&rsquo;t have one install it by following the <a href="https://www.packer.io/downloads"  class="external-link" target="_blank" rel="noopener">official-guide</a></li>
+<li>GCP account</li>
+</ul>
+<h2 id="what-is-packer-and-what-problem-it-solves">
+  What is Packer and what problem it solves
+  <a class="heading-link" href="#what-is-packer-and-what-problem-it-solves">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p><a href="https://www.packer.io/"  class="external-link" target="_blank" rel="noopener">Packer</a> is the tool that helps to create custom images in an automated fashion. Imagine You want to make sure each instance that you create should have Nginx installed You could go with the following solutions.</p>
+<ul>
+<li>Add the Startup script to the instance so that during the instance creation the startup script will install the necessary stuff</li>
+<li>Custom image where we could create the image baked with all the software and configuration</li>
+</ul>
+<p>The first solution is not the efficient way because</p>
+<ul>
+<li>Every time when the instance is getting created we have to wait until the startup scripts finish the installation</li>
+<li>Startup scripts are some times prone to error</li>
+</ul>
+<p>So the second solution may seem efficient one</p>
+<p>Creation of custom images may be  achieved in two ways</p>
+<ul>
+<li>Manually creating the custom Images</li>
+<li>Automating the image creation process</li>
+</ul>
+<p>Packer helps to create the custom images in an automated way</p>
+<p>Below are the few advantages of the Packer</p>
+<ul>
+<li>Multi Builder option allows building images for multiple cloud providers like Amazon, Google Cloud, azure and even for containers like Docker</li>
+<li>Easily fits into the CI/CD pipelines</li>
+<li>Easy to learn</li>
+<li>Provisioning option which helps to install the necessary stuff</li>
+</ul>
+<h2 id="achieving-security-using-packer">
+  Achieving security using Packer
+  <a class="heading-link" href="#achieving-security-using-packer">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Let&rsquo;s see how we can achieve security using Packer. Many people tend to think using the cloud makes us secure by default but it&rsquo;s not true in many cases. Cloud works in the way of shared responsibility, which means there is some level where cloud providers take care of the security where customers have to take care of some security thing</p>
+<p>Let&rsquo;s take the example in Compute Instance Google cloud take care of the underlying infrastructure where users take care of the security at the Operating System level. We have to make sure the software installed in the Instance is updated one and configured in a secured way</p>
+<p>Enough of theory lets see in action For the demo I am going to spin up the Simple Compute instance with <strong>Ubuntu</strong> as the base Image with Docker Installed</p>
+<p>Now I am running <a href="https://github.com/docker/docker-bench-security.git"  class="external-link" target="_blank" rel="noopener">Docker-CIS-benchmark</a> script on the instance that we have created</p>
+<p><img src="/posts/gcp-4/File8.png" alt=""></p>
+<p>You could see the script able to find many security flaws and currently, we are getting Score-11 to let&rsquo;s see how we can improve it</p>
+<h2 id="creating-hardened-image-using-packer">
+  Creating Hardened Image using Packer
+  <a class="heading-link" href="#creating-hardened-image-using-packer">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Creating Hardened Image is the two step process</p>
+<ul>
+<li>Create the Service Account</li>
+<li>Build the Image</li>
+</ul>
+<p>First, we have to create the Service account with the necessary permission to create the custom Image</p>
+<p>Go to the Service account under IAM and Click <strong>CREATE SERVICE ACCOUNT</strong> option</p>
+<p><img src="/posts/gcp-4/File1.png" alt="">
+Enter the Service account name and the description  and Click <strong>create</strong></p>
+<p><img src="/posts/gcp-4/File2.png" alt=""></p>
+<p>Add the  <strong>Compute-admin</strong> and <strong>Service-Account-user</strong> Role to the Service account and click <strong>Done</strong></p>
+<p><img src="/posts/gcp-4/File3.png" alt=""></p>
+<p>Click the created Service-account name on the Service account Page Select the Keys and click <strong>ADD KEY</strong> and click create a new key</p>
+<p><img src="/posts/gcp-4/File4.png" alt=""></p>
+<p>Select the <strong>JSON</strong> option and click <strong>create</strong></p>
+<p><img src="/posts/gcp-4/File5.png" alt=""></p>
+<pre tabindex="0"><code>Note: Make sure to store the downloaded key somewhere safe if the key gets compromised the attacker can access the resources in the GCP
+</code></pre><h2 id="build-the-custom-image">
+  Build the custom Image
+  <a class="heading-link" href="#build-the-custom-image">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Clone the repo using the below command</p>
+<pre tabindex="0"><code>$ git clone https://github.com/JOSHUAJEBARAJ/packer-demo.git
+</code></pre><p>Now move into the cloned folder</p>
+<pre tabindex="0"><code>cd packer-demo
+</code></pre><p>The folder has three files</p>
+<table>
+  <thead>
+      <tr>
+          <th><strong>Files</strong></th>
+          <th><strong>Description</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>build.json</td>
+          <td>file containing the detail about the image</td>
+      </tr>
+      <tr>
+          <td>docker.sh</td>
+          <td>bash  Script to install the Docker</td>
+      </tr>
+      <tr>
+          <td>harden.sh</td>
+          <td>bash Script to harden the docker installation</td>
+      </tr>
+  </tbody>
+</table>
+<p>Replace the below content of the build.json file</p>
+<table>
+  <thead>
+      <tr>
+          <th>Field name</th>
+          <th>Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Image name</td>
+          <td>The image name of the  resultant Image(It should be unique)</td>
+      </tr>
+      <tr>
+          <td>account file</td>
+          <td>Name of the Service account file</td>
+      </tr>
+      <tr>
+          <td>Project_id</td>
+          <td>Replace the Project ID with your Project ID</td>
+      </tr>
+  </tbody>
+</table>
+<p>Now type the below command in the  terminal to validate the packer configuration file</p>
+<pre tabindex="0"><code>$ packer validate build.json
+</code></pre><p>Now build the image using the below command</p>
+<pre tabindex="0"><code>$ packer build build.json
+</code></pre><p>Now create the instance using the custom image that we created above During creation of the instance change the boot disk of the disk by clicking <strong>change</strong></p>
+<p><img src="/posts/gcp-4/change.png" alt=""></p>
+<p>Now under custom image  select <strong>harden-image</strong> and click <strong>select</strong></p>
+<p><img src="/posts/gcp-4/File6.png" alt=""></p>
+<p>Now I am again running the Benchmark script on the instance with the customized base Image you could we bumped the score from 11 to 19</p>
+<p><img src="/posts/gcp-4/File7.png" alt=""></p>
+<p>This is the simple example that I have shown in the blog you can leverage the provisioner like ansible to create the more secure and custom image of your choice for various builders</p>
+<h2 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Thank you for reading my blog I hope you learned something ,If you have any comments or questions feel free to reach out to me on <a href="https://twitter.com/joshva_jebaraj"  class="external-link" target="_blank" rel="noopener">Twitter</a> Feel free to check out my other articles at <a href="https://www.joshuajebaraj.com/posts/"  class="external-link" target="_blank" rel="noopener">my-website</a></p>
+<h2 id="references">
+  References
+  <a class="heading-link" href="#references">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ol>
+<li><a href="https://www.youtube.com/watch?v=lSumUuZT_B8"  class="external-link" target="_blank" rel="noopener">https://www.youtube.com/watch?v=lSumUuZT_B8</a></li>
+<li><a href="https://www.youtube.com/watch?v=LGwlXBC9TjY"  class="external-link" target="_blank" rel="noopener">https://www.youtube.com/watch?v=LGwlXBC9TjY</a></li>
+<li><a href="https://www.packer.io/docs/builders/googlecompute"  class="external-link" target="_blank" rel="noopener">https://www.packer.io/docs/builders/googlecompute</a></li>
+<li><a href="https://github.com/docker/docker-bench-security"  class="external-link" target="_blank" rel="noopener">https://github.com/docker/docker-bench-security</a></li>
+</ol>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2025
+     Joshua Jebaraj 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>

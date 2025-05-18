@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mac on Joshua Jebaraj</title>
+    <link>http://localhost:1313/tags/mac/</link>
+    <description>Recent content in Mac on Joshua Jebaraj</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 01 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My Mac Setup</title>
+      <link>http://localhost:1313/posts/mac-settings/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/mac-settings/</guid>
+      <description>&lt;h2 id=&#34;my-mac-setup&#34;&gt;&#xA;  My Mac Setup&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#my-mac-setup&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;I have been using a mac as the primary driver for the past year. Being a huge sucker for productivity, I try to optimize my workflow as much as possible. In this blog, I am sharing the tools and tricks that I use to make my workflow easier and more productive(at least that what I think)&#xA;​&lt;/p&gt;&#xA;&lt;h2 id=&#34;raycast&#34;&gt;&#xA;  Raycast&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#raycast&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;The default spotlight is very minimal and gets things done, but for nerd for me it is not enough, I have used &lt;a href=&#34;&#34; &gt;alfred&lt;/a&gt; for the past 7 months. But recently I switched to the &lt;a href=&#34;https://www.raycast.com/&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;raycast&lt;/a&gt;. One of the good features about raycast is about the customizability, Basically I have written workflow automation for most of the tasks that I have been doing daily, for example to create the new meet I use the below action&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
