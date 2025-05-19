@@ -9,6 +9,9 @@
     - [False Positive in iam_sa_no_administrative_privileges Check](https://github.com/prowler-cloud/prowler/issues/4393)
 
 
+### [karpenter-provider-gcp](https://github.com/cloudpilot-ai/karpenter-provider-gc)
+- PR
+    - [Docs-Added Contributing Docs](https://github.com/cloudpilot-ai/karpenter-provider-gcp/pull/23)
 ### 🏗️ Personal Projects
 
 
