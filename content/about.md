@@ -3,11 +3,12 @@ title = "About"
 +++
 
 
-Hello, world! 🌎 I'm [Joshua Jebaraj](https://joshuajebaraj.com/) I am a passionate Cloud and Cloud Security Engineer, experienced in deploying and securing cloud infrastructure. I specialize in automation in cloud and cloud-native environments through various open-source tools and building custom tools.
+Hello, world! 👋 
+
+I'm [Joshua Jebaraj](https://joshuajebaraj.com/) I am a passionate Cloud and Cloud Security Engineer, experienced in deploying and securing cloud infrastructure. I specialize in automation in cloud and cloud-native environments through various open-source tools and building custom tools.
 I am interested not only in using various technologies but also in understanding the underlying technologies and sometimes try to build something from scratch.
 I also love to share knowledge and have spoken at various places ranging from local meetups to international conferences.
 
-[Resume](static/images/resume.pdf)
 
 ## 🎤 Talks :
 
