@@ -3,5 +3,5 @@
   HUGO_ENV = "production"
 
 [build]
-command = "hugo "
+command = "hugo"
 publish = "public"
