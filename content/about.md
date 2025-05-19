@@ -10,6 +10,9 @@ I am interested not only in using various technologies but also in understanding
 I also love to share knowledge and have spoken at various places ranging from local meetups to international conferences.
 
 
+[![Resume](https://img.shields.io/badge/Resume-View-blue)](https://docs.google.com/document/d/1KGG5ku3AtLTwTpBwKxwC4aRCzffJVzS5/edit?usp=sharing)
+
+
 ## 🎤 Talks :
 
 1. Defcon Cloud Village - [Understanding common Google Cloud misconfiguration using GCP Goat](https://www.youtube.com/watch?v=dcKER88tH50&t=1485s)
