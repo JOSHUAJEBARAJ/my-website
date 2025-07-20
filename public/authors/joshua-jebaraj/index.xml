@@ -6,8 +6,15 @@
     <description>Recent content on Joshua Jebaraj</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 21 Mar 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 20 Jul 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/authors/joshua-jebaraj/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to setup mysqld prometheus exporter for multiple hosts</title>
+      <link>http://localhost:1313/posts/prometheus-mutli-exporter/</link>
+      <pubDate>Sun, 20 Jul 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/prometheus-mutli-exporter/</guid>
+      <description>&lt;p&gt;Hello everyone, it&amp;rsquo;s been a while since I wrote a blog  post .I got busy with my work . But now,I am back with a new blog post.&lt;/p&gt;&#xA;&lt;p&gt;Last month I was working on a project where I need to setup the &lt;a href=&#34;https://github.com/prometheus/mysqld_exporter&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mysqld exporter&lt;/a&gt; for multiple mysql database. I tried to looking online for any documentation or blogs&#xA;but  I couldn&amp;rsquo;t find any blogs/documentation that explains how to setup the mysqld exporter for multiple hosts. After a lot googling and prompting(begging) with AI I was finally able to get it setup and running.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Introduction to GCP IAM for AWS Professionals</title>
       <link>http://localhost:1313/posts/gcp-iam-101/</link>

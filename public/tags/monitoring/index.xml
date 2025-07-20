@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Monitoring on Joshua Jebaraj</title>
+    <link>http://localhost:1313/tags/monitoring/</link>
+    <description>Recent content in Monitoring on Joshua Jebaraj</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 26 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/monitoring/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to configure MYSQL exporter for multiple hosts</title>
+      <link>http://localhost:1313/posts/prometheus-sql-exporter/</link>
+      <pubDate>Fri, 26 Mar 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/prometheus-sql-exporter/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Hello, Friends Hope you are all staying safe and Happy. It&amp;rsquo;s been a long time since I wrote the blog .Finally I am  able to kick my lazy ass and sit down to write the blog .&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  How to setup mysqld prometheus exporter for multiple hosts · Joshua Jebaraj
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Joshua Jebaraj">
+<meta name="description" content="In this blog we will learn how to setup mysqld prometheus exporter for multiple hosts">
+<meta name="keywords" content="blog,developer,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to setup mysqld prometheus exporter for multiple hosts">
+  <meta name="twitter:description" content="In this blog we will learn how to setup mysqld prometheus exporter for multiple hosts">
+
+<meta property="og:url" content="http://localhost:1313/posts/prometheus-mutli-exporter/">
+  <meta property="og:site_name" content="Joshua Jebaraj">
+  <meta property="og:title" content="How to setup mysqld prometheus exporter for multiple hosts">
+  <meta property="og:description" content="In this blog we will learn how to setup mysqld prometheus exporter for multiple hosts">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-07-20T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-07-20T00:00:00+00:00">
+    <meta property="article:tag" content="Devops">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/prometheus-mutli-exporter/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Joshua Jebaraj
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/projects/">Projects/OSS contributions</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/experiences/">Experiences</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/prometheus-mutli-exporter/">
+              How to setup mysqld prometheus exporter for multiple hosts
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2025-07-20T00:00:00Z">
+                July 20, 2025
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              5-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa-solid fa-user" aria-hidden="true"></i>
+    <a href="/authors/joshua-jebaraj/">Joshua Jebaraj</a></div>
+
+          
+          <div class="tags">
+  <i class="fa-solid fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/devops/">Devops</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <p>Hello everyone, it&rsquo;s been a while since I wrote a blog  post .I got busy with my work . But now,I am back with a new blog post.</p>
+<p>Last month I was working on a project where I need to setup the <a href="https://github.com/prometheus/mysqld_exporter"  class="external-link" target="_blank" rel="noopener">mysqld exporter</a> for multiple mysql database. I tried to looking online for any documentation or blogs
+but  I couldn&rsquo;t find any blogs/documentation that explains how to setup the mysqld exporter for multiple hosts. After a lot googling and prompting(begging) with AI I was finally able to get it setup and running.</p>
+<p>So I decided to write a blog on how to setup the mysqld exporter for multiple hosts for myself and for others who are looking for the solution.</p>
+<h3 id="setting-up-the-database">
+  Setting up the Database
+  <a class="heading-link" href="#setting-up-the-database">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Before setting up the monitoring system we need something to monitor right .So we are going to setup couple of database servers using docker containers and in order to make the communication between our database and the monitoring system we will be leveraging the docker network.</p>
+<p>First lets create the custom docker network where we will be running the database and the monitoring system.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker network create mysql-network
+</span></span></code></pre></div><p>Next spin up  couple of  database instance as the docker container using the below command</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d --network mysql-network --name mysql1 -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>super-secret-password -p 3306:3306 mysql
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d --network mysql-network --name mysql2 -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>super-secret-password -p 3307:3306 mysql
+</span></span></code></pre></div><h3 id="setting-up-the-mysqld-exporter">
+  Setting up the mysqld exporter
+  <a class="heading-link" href="#setting-up-the-mysqld-exporter">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Now that we have the database system up and running next step would be setting up the mysqld exporter. Similar to the database we will leverage the docker container to setup the mysqld exporter.</p>
+<p>First let&rsquo;s create the configuration file which will be used by the mysqld exporter to connect to the database server.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>client.client1<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">host</span><span class="o">=</span>mysql:3306
+</span></span><span class="line"><span class="cl"><span class="nv">user</span><span class="o">=</span>root
+</span></span><span class="line"><span class="cl"><span class="nv">password</span><span class="o">=</span>super-secret-password
+</span></span><span class="line"><span class="cl"><span class="o">[</span>client.client2<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">host</span><span class="o">=</span>mysql2:3307
+</span></span><span class="line"><span class="cl"><span class="nv">user</span><span class="o">=</span>root
+</span></span><span class="line"><span class="cl"><span class="nv">password</span><span class="o">=</span>super-secret-password
+</span></span></code></pre></div><p>Save the above configuration file as <code>config.cnf</code> in the current directory.</p>
+<p>Now that we have the configuration file lets create the docker container for the mysqld exporter</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --network mysql-network <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --name mysqld-exporter <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -p 9104:9104 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/config.cnf:/.my.cnf <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  prom/mysqld-exporter
+</span></span></code></pre></div><p>To verify that mysqld exporter is up and running the mysql exporter is able to connect to the database we can use the curl command to check the status of the exporter</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;http://localhost:9104/probe?target=mysql1:3306&amp;auth_module=client.client1&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;http://localhost:9104/probe?target=mysql2:3306&amp;auth_module=client.client2&#34;</span>
+</span></span></code></pre></div><p>Now that we are done with the setting up exposing the metrics the next step would be setting up the prometheus server to scrape the metrics that are being exported by the mysqld exporter.This is where I got stuck and I couldn&rsquo;t find any documentation on how to setup the prometheus server to scrape the metrics that are being exported by the mysqld exporter.</p>
+<h3 id="setting-up-the-prometheus-server">
+  Setting up the prometheus server
+  <a class="heading-link" href="#setting-up-the-prometheus-server">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>First we have to create the prometheus.yml file with the below contents.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">global</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">15s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l">mysql_multi_target</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="l">/probe</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">file_sd_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="l">/etc/prometheus/targets.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">relabel_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">source_labels</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">__address__]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">target_label</span><span class="p">:</span><span class="w"> </span><span class="l">__param_target</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">source_labels</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">auth_module]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">target_label</span><span class="p">:</span><span class="w"> </span><span class="l">__param_auth_module</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">target_label</span><span class="p">:</span><span class="w"> </span><span class="l">__address__</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">replacement</span><span class="p">:</span><span class="w"> </span><span class="l">mysqld-exporter:9104</span><span class="w">
+</span></span></span></code></pre></div><p>Next we have to create the <code>targets.yml</code> file which has the list of the database servers that we want to monitor and along with the the authentication module as labels.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">auth_module</span><span class="p">:</span><span class="w"> </span><span class="l">client.client1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">targets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">mysql1:3306</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">auth_module</span><span class="p">:</span><span class="w"> </span><span class="l">client.client2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">targets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">mysql2:3306</span><span class="w">
+</span></span></span></code></pre></div><p>Let&rsquo;s try to understand what is happening in the above configuration file.First we are telling the prometheus server to scrape the metrics from the endpoint(Basically this is the endpoint where the mysqld exporter is running)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">target_label</span><span class="p">:</span><span class="w"> </span><span class="l">__address__</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">replacement</span><span class="p">:</span><span class="w"> </span><span class="l">mysqld-exporter:9104</span><span class="w">
+</span></span></span></code></pre></div><p>our endpoint looks like this this</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">http://mysqld-exporter:9104
+</span></span></code></pre></div><p>The below line tells the exporter path to which we need to make the request to get the metrics</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">    metrics_path: /probe
+</span></span></code></pre></div><p>After adding the url path the endpoint looks like this</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">http://mysqld-exporter:9104/probe
+</span></span></code></pre></div><p>The below lines tells the exporter to use the <code>file_sd_configs</code> to read the targets from the file targets.yml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span><span class="nt">file_sd_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="l">/etc/prometheus/targets.yml</span><span class="w">
+</span></span></span></code></pre></div><p>Our exporter exposes metrics for multiple targets so we have to tell the exporter to which target we want to make the request to get the metrics.In order to do that we are going to use the relabel features of the prometheus where its going to replace the target label with the target parameter for the request.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">source_labels</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">__address__]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">target_label</span><span class="p">:</span><span class="w"> </span><span class="l">__param_target</span><span class="w">
+</span></span></span></code></pre></div><p>So now our endpoint looks like this <code>http://mysqld-exporter:9104?target=mysql1:3306</code></p>
+<p>Finally we have to specify the auth_module which we have specified in the <code>targets.yml</code> file</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">source_labels</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">auth_module]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">target_label</span><span class="p">:</span><span class="w"> </span><span class="l">__param_auth_module</span><span class="w">
+</span></span></span></code></pre></div><p>This will tell the exporter to use the auth_module label as the auth_module parameter for the request.</p>
+<p>So now our endpoint looks like this <code>http://mysqld-exporter:9104/target=mysql1:3306&amp;auth_module=client.client1</code></p>
+<p>Now that we have the configuration file lets create the docker container for the prometheus server</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --network mysql-network <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -p 9090:9090 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/prometheus.yml:/etc/prometheus/prometheus.yml <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/targets.yml:/etc/prometheus/targets.yml <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  prom/prometheus
+</span></span></code></pre></div><p>Once you have the prometheus server up and running you can access the prometheus UI at <code>http://localhost:9090</code> and you should be able to see the metrics that are being exported by the mysqld exporter by simply executing the following command</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mysql_up
+</span></span></code></pre></div><p><img src="/posts/prometheus-mutli-exporter/image.png" alt="alt text"></p>
+<p>That it&rsquo;s folks now we have successfully setup the prometheus server to scrape the metrics that are being exported by the mysqld exporter on multiple targets.I hope you found this blog post helpful.If you have any questions or suggestions please feel free to reach out to me. Thank you for reading.</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2020 -
+    
+    2025
+     Joshua Jebaraj 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>
