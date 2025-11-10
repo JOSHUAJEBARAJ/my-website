@@ -1,7 +1,7 @@
 ## 💼 Professional Experience
 
 ### Cloud Engineer
-**arch0** | *September 2023 - February 2024* | Remote
+**arch0** | *September 2023 - February 2025* | Remote
 
 *From robust identity alignment to seamless operations, enjoy comprehensive protection tailored to your unique needs.*
 
