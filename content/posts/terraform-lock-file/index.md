@@ -17,7 +17,7 @@ First create a new file called `main.tf` and fill it with the content below:
 
 ```hcl
 terraform {
-  required_version = ">= 1.5.0"
+  required_version = ">= 1.5.0 "
 
   required_providers {
     google = {
@@ -27,7 +27,7 @@ terraform {
   }
 
   backend "gcs" {
-    bucket = "<replace-me>"   # must be globally unique
+    bucket = "<replace-me>"   
     prefix = "locking-demo"
   }
 }
