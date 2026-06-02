@@ -1,7 +1,7 @@
 +++
 authors = ["Joshua Jebaraj"]
 title = "How to Set Up an Internal Provider Registry for Terraform"
-date = "2026-07-02"
+date = "2026-06-02"
 description = "In this blog we will see how to setup an internal provider registry for the terraform"
 tags = ["Terraform","Security","Devops"]
 +++
