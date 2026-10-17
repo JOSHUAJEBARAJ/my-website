@@ -121,7 +121,7 @@ Select the second option
 
 Next, you will be prompted whether to create the configuration for the new or existing account. Since we are dealing with only a single account select option 1st option
 
-![](imag2.pmg)
+![](imag2.png)
 Type the below command to verify the successful creation of the configuration
 
 ```

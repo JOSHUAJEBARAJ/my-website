@@ -1,0 +1,4 @@
+{{ define "main" }}
+<section class="shell page-heading"><h1>Experience</h1><p>AWS infrastructure, cloud integrations, and Google Cloud security training.</p></section>
+<section class="shell content-section first-content-section"><div class="timeline">{{ range .Site.Data.experience.roles }}<article class="timeline-item"><span class="timeline-date">{{ .dates }}</span><div class="timeline-content"><span class="timeline-company">{{ .company }}</span><h2>{{ .title }}</h2><p>{{ .summary }}</p><ul>{{ range .highlights }}<li>{{ . }}</li>{{ end }}</ul></div></article>{{ end }}</div></section>
+{{ end }}

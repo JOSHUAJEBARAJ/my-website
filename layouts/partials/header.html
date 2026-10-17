@@ -1,0 +1,15 @@
+{{ $path := .RelPermalink }}
+<header class="site-header">
+  <div class="shell header-inner">
+    <a class="wordmark" href="/"><span class="monogram" aria-hidden="true">jj.</span> Joshua Jebaraj</a>
+    <div class="header-controls">
+      <nav class="primary-nav" aria-label="Main navigation">
+        <a href="/projects/" {{ if eq $path "/projects/" }}aria-current="page"{{ end }}>Projects</a>
+        <a href="/posts/" {{ if or (hasPrefix $path "/posts/") (hasPrefix $path "/tags/") }}aria-current="page"{{ end }}>Writing</a>
+        <a href="/experiences/" {{ if eq $path "/experiences/" }}aria-current="page"{{ end }}>Experience</a>
+        <a href="/about/" {{ if eq $path "/about/" }}aria-current="page"{{ end }}>About</a>
+      </nav>
+      <button class="theme-toggle" type="button" data-theme-toggle hidden><span class="theme-toggle-symbol" aria-hidden="true">☾</span><span class="theme-toggle-label">Dark mode</span></button>
+    </div>
+  </div>
+</header>

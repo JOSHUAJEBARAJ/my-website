@@ -1,0 +1,32 @@
+[[roles]]
+  title = "DevOps Engineer (Contract)"
+  company = "Cognara"
+  dates = "May–Aug 2025 · Nov 2025–Apr 2026"
+  summary = "Built AWS migration tooling, moved an internal application to a resilient ECS and RDS architecture, and modernized monitoring."
+  highlights = [
+    "Built a reusable EKS data migration tool using AWS DataSync, DMS, and SQS. Used IRSA for AWS access and protected long-running jobs with PodDisruptionBudgets and PriorityClasses.",
+    "Migrated a business-critical application from a single EC2 instance to ECS and RDS, removing the single point of failure and replacing hardcoded credentials with ECS task roles.",
+    "Migrated more than 150 alerts from Icinga to Prometheus."
+  ]
+
+[[roles]]
+  title = "Cloud Integration Engineer"
+  company = "arch0"
+  dates = "Nov 2023–Feb 2025"
+  summary = "Automated AWS environments and expanded a cloud security platform with new integrations and GCP checks."
+  highlights = [
+    "Provisioned development, staging, and production AWS environments with Terraform, Terragrunt, and GitHub Actions using OIDC authentication, reducing setup time by 85%.",
+    "Built GCP, GitHub, and Google Workspace integrations for the CSPM platform.",
+    "Developed more than 30 automated GCP security checks to detect cloud misconfigurations."
+  ]
+
+[[roles]]
+  title = "Cloud Native Security Lead"
+  company = "we45"
+  dates = "Jun 2021–Aug 2023"
+  summary = "Built Google Cloud security training environments and taught GCP and Kubernetes security."
+  highlights = [
+    "Designed AppSecEngineer's first GCP sandbox with a dedicated project and Workspace user for each learner, using Organization Policy to limit access.",
+    "Authored more than 50 hands-on GCP and Kubernetes security labs covering IAM, networking, KMS, Secret Manager, workload security, Falco, and Kyverno.",
+    "Delivered Google Cloud and Kubernetes security training to more than 200 clients through conferences and private sessions, including Black Hat."
+  ]

@@ -1,0 +1,18 @@
+{{ define "main" }}
+<div class="shell home">
+  <section class="home-intro" aria-labelledby="intro-title">
+    <div>
+      <p class="home-role">AI engineering · Cloud infrastructure · Security</p>
+      <h1 id="intro-title">Joshua Jebaraj.<br><em>Engineer &amp; builder.</em></h1>
+      <p class="home-lead">I build AI agents, developer tools, and the infrastructure behind them. My background in cloud security shapes how I work: make it useful, understand how it fails, and build it to last.</p>
+      <div class="home-links"><a class="primary-link" href="/projects/">Explore my work <span aria-hidden="true">↗</span></a><a href="/images/resume.pdf">View résumé <span aria-hidden="true">↗</span></a><a href="/about/">About me <span aria-hidden="true">→</span></a></div>
+    </div>
+    <figure class="portrait"><img src="/images/headshot.jpg" alt="Joshua Jebaraj" width="1254" height="1254" fetchpriority="high" /><figcaption><span>Joshua Jebaraj</span><span>Based in India</span></figcaption></figure>
+  </section>
+  <div class="intro-note"><span>Building AI systems on a foundation of cloud engineering.</span></div>
+  <section class="home-section" id="projects"><div class="section-header"><div><h2><span class="section-number">01 /</span>Selected work</h2><p>Tools for the problems I care about.</p></div><a class="section-link" href="/projects/">All projects <span aria-hidden="true">↗</span></a></div><div class="project-list">{{ range first 3 .Site.Data.projects.items }}{{ partial "project-card.html" . }}{{ end }}</div></section>
+  <section class="home-section" id="experience"><div class="section-header"><div><h2><span class="section-number">02 /</span>Experience</h2><p>Building systems. Securing them. Sharing what I learn.</p></div><a class="section-link" href="/experiences/">Full experience <span aria-hidden="true">↗</span></a></div><div class="home-experience">{{ range .Site.Data.experience.roles }}<div><span class="home-experience-title">{{ .title }} <span>at {{ .company }}</span></span><span class="home-experience-date">{{ .dates }}</span></div>{{ end }}</div></section>
+  <section class="home-section" id="writing"><div class="section-header"><div><h2><span class="section-number">03 /</span>Field notes</h2><p>Things learned by building, breaking, and figuring it out.</p></div><a class="section-link" href="/posts/">All writing <span aria-hidden="true">↗</span></a></div><div class="post-list">{{ range first 3 (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}{{ partial "post-card.html" . }}{{ end }}</div></section>
+  <section class="contact-note"><div><h2>Have something in mind?</h2><p>I’m open to conversations about AI, infrastructure, and open source.</p></div><a href="{{ .Site.Params.linkedin }}" target="_blank" rel="noopener noreferrer">Let’s connect ↗</a></section>
+</div>
+{{ end }}

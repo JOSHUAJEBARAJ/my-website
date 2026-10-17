@@ -1,0 +1,17 @@
+[build]
+  command = "hugo --minify --cleanDestinationDir"
+  publish = "dist"
+
+[build.environment]
+  HUGO_VERSION = "0.147.2"
+  HUGO_ENV = "production"
+
+[[redirects]]
+  from = "/authors/*"
+  to = "/about/"
+  status = 301
+
+[[redirects]]
+  from = "/categories/*"
+  to = "/posts/"
+  status = 301

@@ -50,7 +50,7 @@ You may ask, isn't this a security issue? we don't want egress traffic to be all
 
 Note that the default implicit egress and ingress rules are created with the lowest priority `65535`, so we can override them with our custom firewall rules.
 
-Enough of this theory—let's get started with the hands-on.
+Enough of this theory. Let's get started with the hands-on.
 
 
 First create the Custom VPC using the below command 
@@ -325,7 +325,7 @@ The last type of firewall we will cover is the Hierarchical Firewall, which allo
 
 Let's take a scenario where we want to restrict access to `https://www.google.com/` across the entire organization using a Hierarchical Firewall Policy.
 
-Enough of the theory—let’s get started.
+Enough of the theory. Let’s get started.
 
 > Note: To perform this hands-on exercise, you need a Google Organization Account.
 
@@ -398,4 +398,4 @@ gcloud compute instances delete test-vm --zone us-central1-c
 ```bash
 gcloud compute instances delete test-vm-2 --zone asia-south1-a
 ```
-For firewall policies, I recommend you to go to the UI and delete the resources or if you are lazy like me delete the whole project xD. 
+For firewall policies, I recommend you to go to the UI and delete the resources or if you are lazy like me delete the whole project xD.

@@ -1,0 +1,7 @@
+{{ $post := . }}
+<article class="post-row">
+  <time datetime="{{ $post.Date.Format "2006-01-02" }}">{{ $post.Date.Format "02 Jan 2006" }}</time>
+  <div class="post-row-main"><h3><a href="{{ $post.RelPermalink }}">{{ $post.Title }}</a></h3>{{ with $post.Description }}<p>{{ . }}</p>{{ end }}</div>
+  <span class="post-row-topic">{{ with index $post.Params.tags 0 }}{{ . }}{{ end }}</span>
+  <a class="row-arrow" href="{{ $post.RelPermalink }}" aria-label="Read {{ $post.Title }}">↗</a>
+</article>

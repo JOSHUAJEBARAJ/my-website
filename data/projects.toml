@@ -1,0 +1,41 @@
+[[items]]
+  name = "Container Posture"
+  type = "AI developer tooling · Security"
+  description = "A Claude Code tool for finding security misconfigurations in Dockerfiles and Kubernetes manifests without extra scanners or services."
+  url = "https://github.com/JOSHUAJEBARAJ/container-posture"
+  number = "01"
+
+[[items]]
+  name = "GCP Goat"
+  type = "Cloud security · Open source"
+  description = "An intentionally vulnerable Google Cloud environment for learning and practicing GCP security."
+  url = "https://github.com/JOSHUAJEBARAJ/GCP-GOAT"
+  number = "02"
+
+[[items]]
+  name = "GCP Enum"
+  type = "Go · Security tooling"
+  description = "A Go tool for checking whether Google Cloud Storage buckets exist during reconnaissance."
+  url = "https://github.com/JOSHUAJEBARAJ/gcp-enum"
+  number = "03"
+
+[[items]]
+  name = "GCP Exposable Resources"
+  type = "Cloud security · Research"
+  description = "A reference list of Google Cloud resources that can be exposed to the internet through public IAM members."
+  url = "https://github.com/JOSHUAJEBARAJ/gcp_exposable_resources"
+  number = "04"
+
+[[items]]
+  name = "Screen Time Signals"
+  type = "Observability · Python"
+  description = "A macOS Screen Time collector and VS Code extension that send app and project usage signals to SigNoz."
+  url = "/posts/signoz-hackthon/"
+  number = "05"
+
+[[items]]
+  name = "Resume Operator"
+  type = "Kubernetes · Automation"
+  description = "A custom Kubernetes operator that builds a portfolio website from a Kubernetes custom resource."
+  url = "https://github.com/JOSHUAJEBARAJ/resume-operator"
+  number = "06"

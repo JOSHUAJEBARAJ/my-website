@@ -1,0 +1,3 @@
+{{ define "main" }}
+<section class="shell page-heading"><h1>Topics</h1><p>Browse articles by subject.</p></section><section class="shell content-section first-content-section"><div class="topic-list">{{ range .Data.Terms.Alphabetical }}<a href="{{ .Page.RelPermalink }}"><strong>{{ .Page.Title }}</strong><span>{{ .Count }} {{ if eq .Count 1 }}article{{ else }}articles{{ end }}</span><b aria-hidden="true">↗</b></a>{{ end }}</div></section>
+{{ end }}

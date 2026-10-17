@@ -1,0 +1,7 @@
+{{ $project := . }}
+<a class="project-row" href="{{ $project.url }}" {{ if hasPrefix $project.url "http" }}target="_blank" rel="noopener noreferrer"{{ end }}>
+  <span class="project-index">{{ $project.number }}</span>
+  <span class="project-main"><strong>{{ $project.name }}</strong><span class="project-description">{{ $project.description }}</span></span>
+  <span class="project-type">{{ $project.type }}</span>
+  <span class="row-arrow" aria-hidden="true">↗</span>
+</a>

@@ -1,0 +1,3 @@
+{{ define "main" }}
+<section class="shell page-heading"><h1>{{ .Title }}</h1><p>{{ len .Pages }} {{ if eq (len .Pages) 1 }}article{{ else }}articles{{ end }} in this topic.</p></section><section class="shell content-section first-content-section"><a class="back-link" href="/tags/">← All topics</a><div class="post-list">{{ range .Pages.ByDate.Reverse }}{{ partial "post-card.html" . }}{{ end }}</div></section>
+{{ end }}

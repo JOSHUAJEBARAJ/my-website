@@ -1,0 +1,4 @@
+{{ define "main" }}
+<section class="shell page-heading"><h1>Writing</h1><p>Notes from projects, debugging sessions, and things I wanted to understand.</p></section>
+<section class="shell content-section first-content-section"><div class="section-header"><div><span class="eyebrow">{{ len .Pages }} ARTICLES</span><h2>All writing</h2></div><a class="section-link" href="/tags/">Browse topics <span aria-hidden="true">↗</span></a></div><div class="post-list">{{ range .Paginator.Pages.ByDate.Reverse }}{{ partial "post-card.html" . }}{{ end }}</div>{{ if gt .Paginator.TotalPages 1 }}<nav class="pagination" aria-label="Article pages">{{ with .Paginator.Prev }}<a href="{{ .URL }}">← Newer</a>{{ end }}<span>Page {{ .Paginator.PageNumber }} of {{ .Paginator.TotalPages }}</span>{{ with .Paginator.Next }}<a href="{{ .URL }}">Older →</a>{{ end }}</nav>{{ end }}</section>
+{{ end }}
