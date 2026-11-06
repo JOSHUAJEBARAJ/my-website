@@ -1,0 +1,13 @@
+<section class="github-activity" aria-labelledby="github-title" data-github-activity data-username="{{ path.Base .Site.Params.github }}">
+  <div class="activity-header"><h2 id="github-title">GitHub contributions</h2><a class="section-link" href="{{ .Site.Params.github }}" target="_blank" rel="noopener noreferrer">View GitHub <span aria-hidden="true">↗</span></a></div>
+  <div class="activity-layout">
+    <div class="activity-panel" aria-busy="true">
+      <p class="activity-status" role="status">Loading contribution activity…</p>
+      <div class="activity-chart" hidden></div>
+      <div class="activity-footer"><a href="https://docs.github.com/en/account-and-profile/reference/profile-contributions-reference" target="_blank" rel="noopener noreferrer">How contributions are counted</a><div class="activity-legend" aria-label="Contribution intensity from less to more"><span>Less</span>{{ range seq 0 4 }}<i class="activity-day" data-level="{{ . }}" aria-hidden="true"></i>{{ end }}<span>More</span></div></div>
+    </div>
+    <nav class="activity-years" aria-label="Contribution year" hidden></nav>
+  </div>
+  <noscript><p>See <a href="{{ .Site.Params.github }}">Joshua’s contribution activity on GitHub</a>.</p></noscript>
+</section>
+<script src="{{ "js/github-activity.js" | relURL }}" defer></script>

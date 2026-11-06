@@ -19,15 +19,15 @@
   type = "Cloud security · Research"
   description = "Research cataloging GCP resources that accept allUsers or allAuthenticatedUsers IAM members, helping security teams identify resources that may be exposed publicly."
   url = "https://github.com/JOSHUAJEBARAJ/gcp_exposable_resources"
-  number = "03"
-  featured = true
+  number = "04"
+  featured = false
 
 [[items]]
   name = "Container Posture"
   type = "Container security · Developer tooling"
   description = "A Claude Code tool for finding security misconfigurations in Dockerfiles and Kubernetes manifests without extra scanners or services."
   url = "https://github.com/JOSHUAJEBARAJ/container-posture"
-  number = "04"
+  number = "03"
   featured = true
 
 [[items]]

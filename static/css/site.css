@@ -99,8 +99,43 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .portrait { margin: 0; }
 .portrait img { width: 240px; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center; }
 .portrait figcaption { display: flex; justify-content: space-between; margin-top: 13px; color: var(--muted); font: 11px/1.5 var(--mono); }
-.intro-note { display: flex; justify-content: space-between; gap: 20px; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; }
-.intro-note span:last-child { color: var(--text); }
+.github-activity { padding: 24px 0 0; border-top: 1px solid var(--line); }
+.activity-header { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; margin-bottom: 18px; }
+.activity-header h2 { margin: 0; font: 500 19px/1.4 var(--sans); letter-spacing: -.02em; }
+.activity-layout { display: grid; grid-template-columns: minmax(0, 1fr) 100px; gap: 24px; }
+.activity-panel { min-width: 0; padding: 22px; border: 1px solid var(--line); border-radius: 8px; }
+.activity-status { min-height: 128px; margin: 0; display: flex; align-items: center; color: var(--muted); font-size: 13px; }
+.activity-chart { overflow-x: auto; padding-bottom: 6px; }
+.activity-calendar { --cell: 12px; --gap: 4px; display: grid; grid-template-columns: 30px minmax(0, 1fr); grid-template-rows: 22px auto; gap: 0 10px; min-width: calc(40px + var(--weeks) * (var(--cell) + var(--gap))); }
+.activity-months, .activity-grid { display: grid; grid-template-columns: repeat(var(--weeks), minmax(var(--cell), 1fr)); column-gap: var(--gap); }
+.activity-months { grid-column: 2; color: var(--muted); font-size: 11px; line-height: 16px; }
+.activity-grid, .activity-weekdays { grid-template-rows: repeat(7, var(--cell)); row-gap: var(--gap); }
+.activity-weekdays { display: grid; color: var(--muted); font-size: 10px; line-height: var(--cell); }
+.activity-day { display: block; height: 12px; min-width: 12px; border-radius: 2px; background: var(--surface); }
+.activity-day[data-level="1"] { background: #9be9a8; }
+.activity-day[data-level="2"] { background: #40c463; }
+.activity-day[data-level="3"] { background: #30a14e; }
+.activity-day[data-level="4"] { background: #216e39; }
+:root[data-theme="dark"] .activity-day[data-level="1"] { background: #0e4429; }
+:root[data-theme="dark"] .activity-day[data-level="2"] { background: #006d32; }
+:root[data-theme="dark"] .activity-day[data-level="3"] { background: #26a641; }
+:root[data-theme="dark"] .activity-day[data-level="4"] { background: #39d353; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .activity-day[data-level="1"] { background: #0e4429; }
+  :root:not([data-theme]) .activity-day[data-level="2"] { background: #006d32; }
+  :root:not([data-theme]) .activity-day[data-level="3"] { background: #26a641; }
+  :root:not([data-theme]) .activity-day[data-level="4"] { background: #39d353; }
+}
+.activity-footer { display: flex; justify-content: space-between; gap: 15px; margin-top: 15px; color: var(--muted); font-size: 11px; }
+.activity-footer a:hover { color: var(--accent); }
+.activity-legend { display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+.activity-legend span:first-child { margin-right: 3px; }
+.activity-legend span:last-child { margin-left: 3px; }
+.activity-years { display: flex; flex-direction: column; gap: 4px; }
+.activity-years button { border: 0; border-radius: 5px; background: transparent; color: var(--muted); padding: 8px 12px; text-align: left; font: 12px/1.4 var(--sans); cursor: pointer; }
+.activity-years button:hover { background: var(--surface); color: var(--text); }
+.activity-years button[aria-current] { background: var(--accent); color: var(--background); }
+.github-activity [hidden] { display: none; }
 .home-section { padding: 62px 0 12px; }
 .section-number { color: var(--accent); font: 11px/1.5 var(--mono); margin-right: 12px; vertical-align: middle; }
 .contact-note { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin: 70px 0 50px; padding: 36px; background: var(--surface); }
@@ -185,7 +220,8 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 @media (max-width: 700px) {
   .shell { width: calc(100% - 36px); }
   .header-inner { flex-wrap: wrap; gap: 0; padding-top: 15px; }.wordmark { width: 100%; }.header-controls { width: 100%; justify-content: space-between; gap: 12px; }.primary-nav { flex: 1; justify-content: space-between; gap: 8px; padding: 14px 0 15px; }.primary-nav a { font-size: 12px; }.theme-toggle { width: 29px; height: 29px; justify-content: center; padding: 0; }.theme-toggle-label { display: none; }
-  .home-intro { grid-template-columns: 1fr; gap: 30px; padding: 48px 0 40px; }.portrait { display: none; }.home-intro h1 { max-width: 550px; }.intro-note { flex-direction: column; gap: 6px; }.contact-note { align-items: start; flex-direction: column; padding: 25px; }.home-lead { font-size: 17px; }
+  .home-intro { grid-template-columns: 1fr; gap: 30px; padding: 48px 0 40px; }.portrait { display: none; }.home-intro h1 { max-width: 550px; }.contact-note { align-items: start; flex-direction: column; padding: 25px; }.home-lead { font-size: 17px; }
+  .activity-header h2 { font-size: 17px; }.activity-layout { grid-template-columns: minmax(0, 1fr); gap: 12px; }.activity-years { grid-row: 1; flex-direction: row; overflow-x: auto; }.activity-years button { white-space: nowrap; padding: 7px 12px; }.activity-panel { padding: 16px; }.activity-footer { flex-wrap: wrap; }
   .home-section, .content-section { padding: 48px 0 54px; }.section-header { align-items: start; flex-direction: column; gap: 8px; }
   .project-row { grid-template-columns: 24px minmax(0, 1fr) 18px; gap: 10px; }.project-type { grid-column: 2; justify-self: start; text-align: left; }.project-row .row-arrow { grid-column: 3; grid-row: 1; }
   .post-row { grid-template-columns: minmax(0, 1fr) 18px; gap: 7px; }.post-row time { grid-column: 1 / -1; }.post-row-main { grid-column: 1; }.post-row-topic { grid-column: 1; justify-self: start; }.post-row .row-arrow { grid-column: 2; grid-row: 2; }

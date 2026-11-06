@@ -28,6 +28,7 @@ The generated site goes to `dist/`. Netlify uses the same build command through 
 - `static/images/resume.pdf`: the linked résumé used to align the portfolio’s experience, skills, and career highlights. Featured cloud security projects were checked against public GitHub repository pages; star counts are omitted because they change over time.
 - `layouts/`: Hugo page templates and shared components.
 - `static/css/site.css`: visual styles.
+- `layouts/partials/github-activity.html`, `static/js/github-activity.js`: homepage contribution calendar, using the configured GitHub profile. Live data comes from the public [GitHub Contributions API](https://github.com/grubersjoe/github-contributions-api), with a profile link available if the service cannot be reached. Visitors can switch between the last year and five calendar years.
 
 The old `public/` directory is a tracked legacy build. The new site does not use it; `dist/` is the deploy output.
 
