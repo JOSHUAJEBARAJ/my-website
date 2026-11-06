@@ -10,4 +10,5 @@
   </div>
   <noscript><p>See <a href="{{ .Site.Params.github }}">Joshua’s contribution activity on GitHub</a>.</p></noscript>
 </section>
-<script src="{{ "js/github-activity.js" | relURL }}" defer></script>
+{{ $activity := resources.FromString "js/github-activity.js" (readFile "static/js/github-activity.js") | minify | fingerprint }}
+<script src="{{ $activity.RelPermalink }}" integrity="{{ $activity.Data.Integrity }}" defer></script>

@@ -12,8 +12,10 @@
 <meta name="description" content="{{ $description }}" />
 <link rel="canonical" href="{{ .Permalink }}" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<link rel="stylesheet" href="{{ "css/site.css" | relURL }}" />
-<script src="{{ "js/theme.js" | relURL }}" defer></script>
+{{ $styles := resources.FromString "css/site.css" (readFile "static/css/site.css") | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}" />
+{{ $theme := resources.FromString "js/theme.js" (readFile "static/js/theme.js") | minify | fingerprint }}
+<script src="{{ $theme.RelPermalink }}" integrity="{{ $theme.Data.Integrity }}" defer></script>
 {{ with .OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }} RSS" href="{{ .RelPermalink }}" />{{ end }}
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
 <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }} · Cloud &amp; Cloud Security Engineer{{ else }}{{ .Title }}{{ end }}" />
