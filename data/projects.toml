@@ -1,30 +1,34 @@
 [[items]]
-  name = "Container Posture"
-  type = "AI developer tooling · Security"
-  description = "A Claude Code tool for finding security misconfigurations in Dockerfiles and Kubernetes manifests without extra scanners or services."
-  url = "https://github.com/JOSHUAJEBARAJ/container-posture"
-  number = "01"
-
-[[items]]
   name = "GCP Goat"
   type = "Cloud security · Open source"
-  description = "An intentionally vulnerable Google Cloud environment for learning and practicing GCP security."
+  description = "A deliberately vulnerable GCP environment covering IAM privilege escalation, GCS misconfigurations, exposed service account credentials, and GKE attack scenarios. Showcased at DEF CON Cloud Village and HITB Armory."
   url = "https://github.com/JOSHUAJEBARAJ/GCP-GOAT"
-  number = "02"
+  number = "01"
+  featured = true
 
 [[items]]
   name = "GCP Enum"
   type = "Go · Security tooling"
-  description = "A Go tool for checking whether Google Cloud Storage buckets exist during reconnaissance."
+  description = "A concurrent Go tool for discovering Google Cloud Storage buckets during reconnaissance. Supports keyword and wordlist-based enumeration; checks bucket existence rather than permissions."
   url = "https://github.com/JOSHUAJEBARAJ/gcp-enum"
-  number = "03"
+  number = "02"
+  featured = true
 
 [[items]]
   name = "GCP Exposable Resources"
   type = "Cloud security · Research"
-  description = "A reference list of Google Cloud resources that can be exposed to the internet through public IAM members."
+  description = "Research cataloging GCP resources that accept allUsers or allAuthenticatedUsers IAM members, helping security teams identify resources that may be exposed publicly."
   url = "https://github.com/JOSHUAJEBARAJ/gcp_exposable_resources"
+  number = "03"
+  featured = true
+
+[[items]]
+  name = "Container Posture"
+  type = "Container security · Developer tooling"
+  description = "A Claude Code tool for finding security misconfigurations in Dockerfiles and Kubernetes manifests without extra scanners or services."
+  url = "https://github.com/JOSHUAJEBARAJ/container-posture"
   number = "04"
+  featured = true
 
 [[items]]
   name = "Screen Time Signals"
@@ -32,6 +36,7 @@
   description = "A macOS Screen Time collector and VS Code extension that send app and project usage signals to SigNoz."
   url = "/posts/signoz-hackthon/"
   number = "05"
+  featured = false
 
 [[items]]
   name = "Resume Operator"
@@ -39,3 +44,4 @@
   description = "A custom Kubernetes operator that builds a portfolio website from a Kubernetes custom resource."
   url = "https://github.com/JOSHUAJEBARAJ/resume-operator"
   number = "06"
+  featured = false

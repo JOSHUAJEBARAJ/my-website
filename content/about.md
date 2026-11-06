@@ -1,13 +1,13 @@
 +++
 title = "About"
-description = "Joshua Jebaraj builds practical AI agents, developer tools, and secure AI infrastructure."
+description = "Cloud and Cloud Security Engineer with 4+ years of experience in AWS, Google Cloud, Kubernetes, infrastructure as code, and cloud security training."
 layout = "about"
 +++
 
-I’m Joshua, an AI developer building practical agents, developer tools, and secure AI infrastructure. I’m especially interested in what happens when agents use tools, access sensitive systems, and have to operate safely in the real world.
+I’m Joshua, a Cloud and Cloud Security Engineer with 4+ years of experience building cloud-native systems. I work across AWS and Google Cloud, combining infrastructure as code, Kubernetes, CI/CD automation, and security engineering.
 
-I work on agentic systems, AI automation, MCP integrations, cloud deployment, and AI security. My background in cloud infrastructure, Kubernetes, DevOps automation, and cloud security shapes how I build: useful AI systems should also be observable and secure.
+I created [GCP-Goat](https://github.com/JOSHUAJEBARAJ/GCP-GOAT), a deliberately vulnerable GCP environment covering IAM privilege escalation, GCS misconfigurations, exposed service account credentials, and GKE attack scenarios. I’ve presented it at DEF CON Cloud Village and Hack In The Box Armory. I also build [cloud reconnaissance tools](https://github.com/JOSHUAJEBARAJ/gcp-enum), research [publicly exposable GCP resources](https://github.com/JOSHUAJEBARAJ/gcp_exposable_resources), and contribute to open-source cloud security tools such as Prowler.
 
-I created [GCP-Goat](https://github.com/JOSHUAJEBARAJ/GCP-GOAT), an open-source environment for learning GCP security. More recently, I built [Container Posture](https://github.com/JOSHUAJEBARAJ/container-posture), a Claude Code tool that identifies security misconfigurations in Dockerfiles and Kubernetes manifests without requiring additional scanners or services.
+I also built [Container Posture](https://github.com/JOSHUAJEBARAJ/container-posture), a Claude Code tool for finding security misconfigurations in Dockerfiles and Kubernetes manifests.
 
-I’ve shared my cloud security work at conferences including DEF CON, BSides, and Ekoparty. I’m open to collaborating on practical AI and open-source projects.
+I’m open to cloud engineering and cloud security roles, and to collaborating on open-source security and infrastructure projects.

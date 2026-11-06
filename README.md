@@ -1,6 +1,6 @@
 # Joshua Jebaraj’s website
 
-A Hugo portfolio for Joshua Jebaraj, centered on AI native engineering and grounded in cloud, security, and systems work.
+A Hugo portfolio for Joshua Jebaraj, focused on cloud engineering, cloud security, and DevOps.
 
 ## Run locally
 
@@ -24,7 +24,8 @@ The generated site goes to `dist/`. Netlify uses the same build command through 
 
 - `content/posts/<slug>/index.md`: articles and their page bundle images. The existing article URLs remain `/posts/<slug>/`.
 - `content/about.md`, `content/projects.md`, `content/experiences.md`: page metadata and the about introduction.
-- `data/projects.toml`, `data/experience.toml`: project cards and the experience timeline.
+- `data/projects.toml`, `data/experience.toml`: project cards and the experience timeline. Projects with `featured = true` appear in “Featured projects” on the homepage and Projects page; other projects appear under “More work”.
+- `static/images/resume.pdf`: the linked résumé used to align the portfolio’s experience, skills, and career highlights. Featured cloud security projects were checked against public GitHub repository pages; star counts are omitted because they change over time.
 - `layouts/`: Hugo page templates and shared components.
 - `static/css/site.css`: visual styles.
 

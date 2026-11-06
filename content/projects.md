@@ -1,5 +1,5 @@
 +++
 title = "Projects"
-description = "Tools, experiments, and open source work."
+description = "Cloud security tools, Kubernetes automation, and open source infrastructure projects."
 layout = "projects"
 +++

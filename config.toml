@@ -18,7 +18,7 @@ publishDir = "dist"
   tag = "tags"
 
 [params]
-  description = "Joshua Jebaraj is an AI Native Engineer building practical AI agents, developer tools, and secure AI infrastructure."
+  description = "Joshua Jebaraj is a Cloud and Cloud Security Engineer building secure AWS and Google Cloud infrastructure, Kubernetes platforms, and automation."
   author = "Joshua Jebaraj"
   github = "https://github.com/JOSHUAJEBARAJ"
   linkedin = "https://www.linkedin.com/in/joshuajebaraj/"
